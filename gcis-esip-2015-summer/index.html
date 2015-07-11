@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>GCIS -- Technical Updates 2015</title>
+
+		<meta name="description" content="GCIS Technical updates">
+		<meta name="author" content="Brian Duggan">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<!------------------------------------------------------------------------>
+
+<section>
+    <h3>Global Change Information System</h3>
+    <p>Technical Updates</p>
+    <p>
+    <small>Presenter: Brian Duggan<br>
+        ESIP Summer 2015</small>
+    </p>
+
+</section>
+
+<section data-markdown>
+    #### Last year..
+</section>
+
+<section>
+    <img data-src="nca3-cover.png" />
+</section>
+
+<section data-markdown>
+        <script type="text/template">
+        http://data.globalchange.gov
+        - /report/nca3
+        - /report/nca3/chapter/2
+        - /report/nca3/chapter/2/figure/26
+        - /reference/0029eba2-f4a7-4d12-bd24-4f677da92109
+        - /article/10.1001/jama.2011.620
+        - /person/0000-0001-7599-9750
+        - /platform/aura    <!-- .element: style="color:#44dddd" -->
+        - /instrument/argos-3 <!-- .element: style="color:#44dddd" -->
+        - /model/hadgem1 <!-- .element: style="color:#44dddd" -->
+        - /scenario/sres_b2 <!-- .element: style="color:#44dddd" -->
+        </script>
+</section>
+
+<section>
+    <img src="arch.png" />
+</section>
+
+<section data-markdown>
+    #### Since then...
+</section>
+
+<section>
+    <h4>1,216 code changes</h4>
+   <pre>
+  <code>
+$ git rev-list --since=@{"one year ago"} HEAD --count
+1216
+  </code>
+    </pre>
+    <p>
+    <a href='http://github.com/USGCRP/gcis/graphs' target="_blank">http://github.com/USGCRP/gcis/graphs</a>
+    </p>
+
+</section>
+
+<section>
+    <h4>137,683 database changes</h4>
+<pre>
+<code>    select action, count(1)
+    from audit.logged_actions
+    where action_tstamp_tx > now() - interval '1 year'
+    group by 1;
+</code>
+<code>     action | count
+    --------+-------
+     D      |  7767
+     I      | 62584
+     U      | 67332
+    (3 rows)
+</code>
+</pre>
+<a href="http://data-stage.globalchange.gov/export/gcis.txt" target="_blank">http://data-stage.globalchange.gov/export/gcis.txt</a>
+                </section>
+
+<section>
+<h4>311,407 Triples</h4>
+<pre>
+<code>    SELECT (COUNT(*) AS ?triples)
+    from &lt;http://data.globalchange.gov&gt;
+    { ?s ?p ?o  }
+</code>
+<code>    311407
+</code>
+</pre>
+<a href="http://data.globalchange.gov/sparql" target="_blank">http://data.globalchange.gov/sparql</a>
+</section>
+
+<section>
+<pre>
+<code>$ curl http://data.globalchange.gov/metrics.yaml
+--
+counts:
+  person:       8867
+  dataset:      2377
+  article:      2150
+  organization: 1204
+  report:        821
+  figure:        575
+  instrument:    530
+  journal:       544
+  book:          226
+  platform:      282
+  model:          33
+  scenario:        3
+$
+</pre>
+</code>
+<a href="http://data.globalchange.gov/metrics.yaml" target="_blank">http://data.globalchange.gov/metrics.yaml</a>
+</section>
+
+<section data-background="spiral.svg" data-markdown>
+    <script type='text/template'>
+    ### More resources
+     - report: nca3
+     - chapter, figures, findings, tables, references (report production)
+     - images, articles, journals, books (nca3 references)
+     - people, organizations (nca3 authors, report authors)
+     - datasets (report production, images)
+     - datasets (journal articles, DAACs) <!-- .element: style="color:#44dddd" -->
+     - platforms, instruments (CEOS) <!-- .element: style="color:#44dddd" -->
+     - models, scenarios, model runs (CMIP3, CMIP5, others) <!-- .element: style="color:#44dddd" -->
+     - people (article authors) <!-- .element: style="color:#44dddd" -->
+    </script>
+<a href="http://data.globalchange.gov/resources" target="_blank">http://data.globalchange.gov/resources</a>
+</section>
+
+
+<section>
+    <img src="miller.png" style='width:60%;' />
+</section>
+
+<section data-background="growth.png" data-background-size="65%">
+</section>
+
+<section>
+    <h3>Linked Data</h3>
+    <p> <q cite="http://www.forbes.com/sites/paulmiller/2015/07/10/open-data-awards-celebrate-smart-uses-of-public-data">
+        &ldquo;Putting datasets on the web ... is actually pretty easy. ...
+Linking from one data set to another, so that both people and machines
+understand that a resource in one data set is the same thing as a resource
+in a second data set is far harder.  Those explicit links can be made,
+but it requires agreement, standards, and an awful lot of hard work.&rdquo;
+    </q>
+    -- timbl, 2015-07-10
+    </p>
+</section>
+
+<section>
+    <h3>Linked data techniques</h3>
+    <ul>
+        <li>Identifiers (DOI, ISSN, ISBN, ORCID)
+        <li>Lexicons
+        <li>Curate merges, provide redirects to permanent URIs
+    </ul>
+    <p>Dbpedia, USGS publications database, DAAC APIs</p>
+    <p>
+    <a href="http://data.globalchange.gov/lexicon/" target="_blank">http://data.globalchange.gov/lexicon/</a><br>
+    <a href="http://events.linkeddata.org/ldow2015/">http://events.linkeddata.org/ldow2015/</a>
+    </p>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type='text/template'>
+    ### Work in progress
+    - Health report
+    - controlled vocabularies
+    - station data
+    - health datasets (EPA, CDC)
+    - models
+    </script>
+</section>
+
+<section data-markdown>
+    <script type='text/template'>
+    ## Thank you
+    Questions:
+    - Who else provides data that overlaps with your data?
+    - Who provides identifiers that you use?
+    - What identifiers/URIs do you mint?
+    </script>
+</section>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+            Reveal.configure({ slideNumber: 'c / t' });
+		</script>
+
+	</body>
+</html>

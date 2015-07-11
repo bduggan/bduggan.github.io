@@ -1,0 +1,60 @@
+digraph growth {
+    bgcolor=black;
+    fontcolor=white;
+    node[ color=white; bgcolor=black; fontcolor=white; ];
+    edge[ color=white; bgcolor=black; fontcolor=white;];
+    
+
+    nca3 -> chapters;
+    nca3 -> figures;
+    nca3 -> findings;
+    nca3 -> tables;
+    nca3 -> references;
+    nca3 -> datasets;
+    images -> datasets;
+    figures -> images;
+    tables -> arrays;
+    figures -> articles;
+    articles -> journals;
+    articles -> contributors;
+    chapters -> references;
+    findings -> references;
+    tables -> references;
+    references -> books;
+    references -> webpages;
+    references -> articles;
+        articles -> datasets;
+    references -> reports;
+        reports -> contributors;
+    contributors -> people;
+    contributors -> organizations;
+    datasets -> model_runs;
+        model_runs -> models;
+        model_runs -> scenarios;
+    datasets -> instrument_instances;
+        instrument_instances -> platforms;
+        instrument_instances -> instruments;
+    images -> contributors;
+    daacs -> datasets;
+    daacs -> instrument_instances;
+    ceos -> platforms;
+    platforms -> contributors;
+    ceos -> instruments;
+    crossref -> articles;
+    orcid -> people;
+    ceos -> instrument_instances;
+    crossref -> people;
+    figures -> references;
+
+    instrument_instances [label="instrument instances"];
+
+    daacs [label="DAACs"];
+    ceos [label="CEOS"];
+    nca3 [label="NCA3 Report Production"];
+    orcid [label="ORCID"];
+    crossref [label="CrossRef"];
+
+
+    {rank=same; ceos, daacs, nca3, crossref, orcid}
+}
+
