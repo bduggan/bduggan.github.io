@@ -1,9 +1,5 @@
 digraph growth {
-    bgcolor=black;
-    fontcolor=white;
-    node[ color=white; bgcolor=black; fontcolor=white; ];
-    edge[ color=white; bgcolor=black; fontcolor=white;];
-    
+    node [fontname=Lucida; ];
 
     nca3 -> chapters;
     nca3 -> figures;
@@ -45,16 +41,22 @@ digraph growth {
     ceos -> instrument_instances;
     crossref -> people;
     figures -> references;
+    usgs_pubs -> reports;
+    pcmdi -> models;
 
     instrument_instances [label="instrument instances"];
+    model_runs [label="model runs"];
 
     daacs [label="DAACs"];
     ceos [label="CEOS"];
     nca3 [label="NCA3 Report Production"];
     orcid [label="ORCID"];
     crossref [label="CrossRef"];
+    usgs_pubs [label="USGS Pubs"];
+    pcmdi [label="PCMDI"];
 
+    daacs,ceos,nca3,orcid,crossref,usgs_pubs,pcmdi [fontcolor="#115555"];
 
-    {rank=same; ceos, daacs, nca3, crossref, orcid}
+    {rank=same; ceos, daacs, nca3, usgs_pubs, crossref, orcid, pcmdi}
 }
 

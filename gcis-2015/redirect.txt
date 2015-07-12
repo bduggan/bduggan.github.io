@@ -1,0 +1,41 @@
+[bduggan@lubber (master) gcis-2015]$ curl -vL http://localhost:3000/person/4990.json
+* Hostname was NOT found in DNS cache
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 3000 (#0)
+> GET /person/4990.json HTTP/1.1
+> User-Agent: curl/7.37.1
+> Host: localhost:3000
+> Accept: */*
+>
+< HTTP/1.1 302 Found
+< Connection: keep-alive
+* Server Mojolicious (Perl) is not blacklisted
+< Server: Mojolicious (Perl)
+< Date: Sun, 12 Jul 2015 00:04:28 GMT
+< Content-Length: 0
+< Access-Control-Allow-Origin: *
+< X-API-Version: 1.32
+< Location: /person/1024.json
+<
+* Connection #0 to host localhost left intact
+* Issue another request to this URL: 'http://localhost:3000/person/1024.json'
+* Found bundle for host localhost: 0xd23d00
+* Re-using existing connection! (#0) with host localhost
+* Connected to localhost (127.0.0.1) port 3000 (#0)
+> GET /person/1024.json HTTP/1.1
+> User-Agent: curl/7.37.1
+> Host: localhost:3000
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Access-Control-Allow-Origin: *
+* Server Mojolicious (Perl) is not blacklisted
+< Server: Mojolicious (Perl)
+< Connection: keep-alive
+< Date: Sun, 12 Jul 2015 00:04:28 GMT
+< Content-Length: 4052
+< X-API-Version: 1.32
+< Content-Type: application/json
+<
+{"uri":"\/person\/1024","last_name":"Hayhoe","url":"http:\/\/www.katharinehayhoe.com\/","href":"http:\/\/localhost:3000\/person\/1024.json","orcid":"0000-0003-3625-1402","middle_name":null,"id":1024,"contributors":[{"role_type_identifier":"author","publications":[{"uri":"\/report\/ucusa-howtoavoid-2007"}],"id":2699,"person_id":1024,"organization_identifier":"texas-tech-university-department-geosciences"},{"organization_identifier":null,"person_id":1024,"id":5109,"publications":[{"uri":"\/article\/10.1007\/s00382-006-0187-8"},{"uri":"\/article\/10.1007\/s00382-013-1801-1"},{"uri":"\/article\/10.1007\/s10584-007-9376-7"},{"uri":"\/article\/10.1007\/s11027-007-9125-2"},{"uri":"\/article\/10.1007\/s11027-007-9127-0"},{"uri":"\/article\/10.1016\/j.jglr.2009.09.009"},{"uri":"\/article\/10.1016\/j.jglr.2009.12.009"},{"uri":"\/article\/10.1016\/j.jglr.2010.03.011"},{"uri":"\/article\/10.1016\/j.jglr.2010.03.012"},{"uri":"\/article\/10.1029\/2007JD009775"},{"uri":"\/article\/10.1139\/X08-116"},{"uri":"\/article\/10.1175\/2007jamc1480.1"},{"uri":"\/article\/10.1175\/2009JCLI2577.1"},{"uri":"\/article\/10.1175\/BAMS-D-12-00172.1"},{"uri":"\/article\/10.1371\/journal.pone.0005102"},{"uri":"\/article\/10.1890\/ES11-00345.1"},{"uri":"\/article\/10.1029\/2007GL030295"}],"role_type_identifier":"author"},{"id":1292,"publications":[{"uri":"\/report\/nca3\/chapter\/our-changing-climate"},{"uri":"\/report\/nca3\/chapter\/appendix-faqs"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement"}],"role_type_identifier":"lead_author","organization_identifier":"texas-tech-university","person_id":1024},{"publications":[{"uri":"\/image\/108f029d-07b3-4dc8-b5fb-fac0fa52277d"},{"uri":"\/report\/nca3\/chapter\/appendix-faqs\/figure\/short-term-variations-versus-long-term-trend"},{"uri":"\/image\/ea068b20-6c20-4f8b-baec-386d4cfab118"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/1700-years-of-global-temperature-from-proxy-data"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/atmospheric-carbon-dioxide-levels"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/percent-of-west-in-summer-drought"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/longterm-warming-and-shortterm-variation"},{"uri":"\/image\/a74f063a-46cd-4d61-b77e-8e0b0ead2fb9"},{"uri":"\/image\/5f5cd75f-4efb-4162-ae0f-b456269f08c3"},{"uri":"\/image\/8f0eba22-984f-44b7-8967-e0532c9ef3b0"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/changing-forest-fires-in-the-us"},{"uri":"\/report\/nca3\/chapter\/appendix-faqs\/figure\/caq-carbon-emissions-in-the-industrial-age"},{"uri":"\/image\/fb33b08b-9e61-4bfd-a26a-1bcd615994eb"},{"uri":"\/report\/nca3\/chapter\/appendix-faqs\/figure\/caq-1700-years-of-global-temperature-from-proxy-data"},{"uri":"\/image\/17f04855-9247-4f85-af95-bf5154774fba"},{"uri":"\/report\/nca3\/chapter\/appendix-faqs\/figure\/multiple-pathways-for-reducing-us-emissions"},{"uri":"\/image\/03cbf10a-8c22-4c9f-8a* Connection #0 to host localhost left intact
+50-12ac6b45a0e6"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/carbon-emissions-historical-and-projected"},{"uri":"\/image\/7a9e77f5-9f6a-4b1f-942e-a739b82e34aa"},{"uri":"\/image\/2c7f54b9-99dc-4e09-95b1-f2244bcdf7ab"},{"uri":"\/image\/5a078a03-28f5-4f7b-8be9-fba3a10c42ae"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/carbon-emissions-in-the-industrial-age"},{"uri":"\/image\/ebc4e8fb-f987-40da-9bbf-e36802241556"},{"uri":"\/image\/c6de30bc-2924-46f5-bbc5-14f95cf27584"},{"uri":"\/report\/nca3\/chapter\/appendix-climate-science-supplement\/figure\/emissions-concentrations-and-temperature-projections"},{"uri":"\/image\/c930a717-a255-4bfe-b958-6c3737263b17"},{"uri":"\/image\/5d031cdb-2de3-4b74-b4ca-fcdb8d9c1396"},{"uri":"\/image\/4658d4b5-777e-47bb-8e4d-23cc2abe37c8"}],"role_type_identifier":"scientist","id":3758,"person_id":1024,"organization_identifier":"texas-tech-university"}],"first_name":"Katharine"}[bduggan@lu
