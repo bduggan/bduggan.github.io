@@ -1,1 +1,361 @@
-test
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Perl Xmas Carol 2015</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+<style>
+
+.backgrounds {
+     -webkit-filter: sepia(100%) brightness(50%);
+     -moz-filter   : sepia(100%) brightness(50%);
+     -o-filter     : sepia(100%) brightness(50%);
+     -ms-filter    : sepia(100%) brightness(50%);
+     filter	       : sepia(100%) brightness(50%);
+ }
+
+h1.gold, h2.gold, h5.gold {
+    color:gold;
+    -webkit-text-stroke: 1px black;
+}
+.strike {
+    text-decoration:line-through;
+}
+</style>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background='cover.jpg' data-background-size="contain" data-state="blur">
+                    <h5 class='gold'><br>Perl</h5>
+                    <br>
+					<p>
+                    <small>Brian</small>
+					</p>
+				</section>
+
+				<section data-background='t-of-c.jpg' data-background-size='contain'>
+					<ol>
+						<li>Perl's Ghost</li>
+                        <li>Ghost of Perl Past</li>
+                        <li>Ghost of Perl Present</li>
+                        <li>Ghost of Perl Yet to Come</li>
+                        <li>Dec 25, 2015</li>
+					</ol>
+				</section>
+
+                <section>
+					<h2 class='gold'>1. Perl's Ghost</h2>
+                    <img src='./goofy.jpg' />
+                    <br>
+                    <div style='font-size:60%;float:right;'>* backwards-compatibilty chains</div>
+                </section>
+
+                <section>
+                    <pre>
+
+$ man perlhist
+
+...
+THE KEEPERS OF THE PUMPKIN
+
+	Larry	1.000	       1987-Dec-18
+	Larry	2.000	       1988-Jun-05
+	Larry	3.000	       1989-Oct-18
+	Larry	4.000	       1991-Mar-21
+	Larry	5.000	       1994-Oct-17
+	Sarathy  5.005	       1998-Jul-22
+	Sarathy  5.6.0	       2000-Mar-22
+	Jarkko	 5.8.0	       2002-Jul-18
+	Hugo	 5.9.0	       2003-Oct-27
+	Rafael	 5.10.0        2007-Dec-18
+	Jesse	 5.11.0        2009-Oct-02
+	Jesse	 5.12.0        2010-Apr-12
+	Leon	 5.13.0        2010-Apr-20
+	Jesse	 5.14.0        2011-May-14
+	David G  5.15.0        2011-Jun-20
+	Ricardo  5.16.0        2012-May-20
+	Zefram	 5.17.0        2012-May-26
+	Ricardo  5.18.0        2013-May-18
+	Ricardo   5.19.0       2013-May-20
+	Ricardo   5.20.0       2014-May-27
+	Ricardo   5.21.0       2014-May-27
+	Ricardo   5.22.0       2015-Jun-01
+	Ricardo   5.23.0       2015-Jun-20
+                    </pre>
+                </section>
+
+                <section>
+					<h2 class='gold'>2. Perl Past</h2>
+                    <img src='camel.png' /><br>
+                    <small>"Programming Perl 4th Ed cover" by Source (WP:NFCC#4).<br>1991, 1996, 2000, 2012</small>
+                </section>
+
+                <section>
+                    <img src="advent-archives.png" width="70%" style='border:0px;' />
+                </section>
+
+                <section data-background='camel-santa.png' data-background-size='contain' >
+                    <a href="http://perladvent.org/2008" target="_blank">http://perladvent.org/2008/13</a>
+                </section>
+
+                <section>
+					<h2 class='gold'>3. Perl Present</h2>
+                    <img src='raptor.png'>
+                </section>
+
+                <section>
+                    <h4>Comprehensive Perl Archive Network</h4>
+                    <ul>
+                        <li><a style='color:grey;' href="http://www.cpan.org" target="_blank">cpan.org</a></li>
+                        <li><a href="http://metacpan.org" target="_blank">metacpan.org</a></li>
+                        <li style='color:grey;'>CPAN</li>
+                        <li style='color:grey;'>CPANPLUS</li>
+                        <li>cpanminus (<a target="_blank" href="https://metacpan.org/pod/App::cpanminus">cpanm</a>)</li>
+                        <li><a href="http://perlbrew.pl" target="_blank">perlbrew</a></li>
+                    </ul>
+
+<pre>
+<code class="hljs" data-trim contenteditable>$ brew install cpanm
+$ cpanm install Text::SpellChecker
+</code>
+</pre>
+<aside class="notes">Postgredis</aside>
+                </section>
+
+                <section>
+                    <tiny>There's More Than One Way to Do It (TMTOWTDI)</tiny>
+<pre>
+<code class="hljs" data-trim contenteditable>
+#!/usr/bin/env perl
+use v5.14;
+
+my %santa;
+$santa{claus} = 1;
+
+if ( exists $santa{claus} ) {
+    say "ho ho"
+}
+
+say 'ho ho' if exists $santa{claus};
+
+say 'ho ho' unless not exists $santa{claus};
+
+say 'ho ho' unless ! exists $santa{claus};
+
+exists $santa{claus} and say "ho ho";
+
+not exists $santa{claus} or say "ho ho";
+</code>
+</pre>
+                </section>
+
+                <section>
+                    <tiny>There's More Than One Way to Do It (TMTOWTDI)</tiny>
+<pre>
+<code class="hljs" data-trim contenteditable>#!/usr/bin/env perl
+use v5.14;
+
+# OO
+package Santa {
+    sub exists {
+        1;
+    }
+}
+say 'ho ho' if Santa->exists;
+
+# Functional
+sub santa {
+    shift->()
+}
+sub exists {
+    1;
+}
+say 'ho ho' if santa(\&exists);</code>
+</pre>
+
+                </section>
+
+                <section>
+                    <h3>Perl5 Resources</h3>
+                    <ul>
+                        <li>man pages
+                            <div style='font-family:monospace;'>man perlintro<br>man perl</div></li>
+                        <li><a target="_blank" href="http://perlmonks.org">perlmonks.org</a>
+						<li><a target="_blank" href="http://yapc.org">YAPC</a> (YAPC::NA, YAPC::EU, YAPC::Asia...)
+                        <li><a target="_blank" href="http://pghpw.org">PGHPW</a>,
+                            <a target="_blank" href="http://dcbpw.org">DCBPW</a>
+                        <li>Philly Perl mongers<br>
+                            <a target="_blank" href="http://phl.pm.org">phl.pm.org</a>
+                        <li>Web frameworks<br>
+                            <a target="_blank" href="http://mojolicio.us">mojolicio.us</a><br>
+                            <a target="_blank" href="http://perldancer.org">perldancer.org</a><br>
+                            <a target="_blank" href="http://plackperl.org">PSGI/Plack</a>
+                        <li>Perlweekly<br>
+                             <a target="_blank" href="http://perlweekly.com">http://perlweekly.com</a>
+                    </ul>
+                </section>
+
+                <section>
+					<h2 class='gold'>4. Perl Yet to Come</h2>
+                    <img src='camelia.png' style='border:none;'/>
+				</section>
+				<section>
+
+                    <h3>Perl6</h3>
+		<blockquote>Perl 5 was my rewrite of Perl.  I want Perl 6 to be the community's rewrite of Perl and of the community.</blockquote><small>--Larry Wall, State of the Onion speech, TPC4 (OSCon 2000)</small>
+				</section>
+				<section>
+					<ul>
+						<li>In development since 2000
+						<li>1.0 Planned for XMAS 2015
+						<li><a target="_blank" href="http://perl6.org">http://perl6.org</a>
+						<li><a target="_blank" href="http://perl6advent.wordpress.com">http://perl6advent.wordpress.com</a>
+					</ul>
+                </section>
+
+				<section>
+					<h2>Perl6</h2>
+					<pre>
+<code class="hljs" data-trim contenteditable>
+say "Mlčoch".substr(2,1).uniname</code>LATIN SMALL LETTER C WITH CARON
+
+<code class="hljs" data-trim contenteditable>
+# Define unicode ÷ to be divided by
+sub infix:<÷> (Int $n, Int $m) {
+        fail "can't divide by 0" if $m == 0;
+        return $n / $m;
+}
+say 10 ÷ 5
+</code>5
+
+<code class="hljs" data-trim contenteditable>
+sub present {
+    say 'robot'
+}
+my $paper = &present.wrap(sub { ... } )
+present
+</code>Stub code executed
+
+<code class="hljs" data-trim contenteditable>
+&present.unwrap($paper)
+present
+</code>robot
+</code></pre>
+</section>
+
+<section>
+<h2>Perl6</h2>
+<ul>
+    <li>Grammars (slangs)
+    <li>multi dispatch
+    <li>gradual typing
+    <li>addition, subtraction, division
+</ul>
+</section>
+
+<section>
+<pre>
+<code class="hljs" data-trim contenteditable>
+ruby -e 'puts 7/2'
+python -c 'print 7/2'
+perl -e 'print 7/2'
+perl6 -e 'print 7/2'
+
+ruby -e 'puts -7/2'
+python -c 'print -7/2'
+perl -e 'print -7/2'
+perl6 -e 'print -7/2'
+
+ruby -e 'puts .1 + .2 - .3'
+python -c 'print .1 + .2 - .3'
+perl -e 'print .1 + .2 - .3'
+perl6 -e 'print .1 + .2 - .3'
+
+</code></pre>
+
+<div style='font-size:75%;'>
+    <i><a href="http://blogs.perl.org/users/ovid/2015/03/perl-6-for-mere-mortals---fosdem-video.html">Perl6 for Mere Mortals</a></i>, Ovid
+</div>
+</section>
+
+<section>
+    <h2 class='gold'>5. Dec 25, 2015</h2>
+    <img src='./party.png' />
+</section>
+
+<section>
+<h2>the end</h2>
+<img src='ending/one.jpg' class='current-visible' style='position:absolute; top: -200px;' />
+<img src='ending/two.jpg'   style='position:absolute;right:10px;top:-100px' />
+<img src='ending/three.jpg'  style='position:absolute;left:10px;top:0px'/>
+<img src='ending/four.jpg'  style='position:absolute;right:10px;top:200px;'/>
+<img src='ending/five.jpg' style='position:absolute;left:50px;top:180px'/>
+<img src='ending/six.jpg' style='position:absolute;left:320px;top:230px'/>
+</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
