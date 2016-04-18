@@ -1,0 +1,8 @@
+digraph z {
+Postgres -> Webserver [dir=both];
+Webserver -> html1 -> Javascript;
+Javascript -> Webserver [label="JSON", dir=both];
+Javascript -> HTML;
+html1 [label = "Initial HTML"]
+}
+
