@@ -1,0 +1,53 @@
+digraph z {
+     edge [fontname="Courier 10 Pitch" fontsize="10" ]
+
+     app -> model [ label="has" ]
+
+     day -> saveable [ label="does" ]
+     day -> serializable [ label="does" ]
+     day -> referencable [ label="does" ]
+
+     cal -> day [ label="has many" ]
+     cal -> searchable [ label="does" ]
+
+     wiki -> searchable [ label="does" ]
+     wiki -> page [ label="has many" style="dashed" ]
+
+     page -> saveable [ label="does" ]
+     page -> serializable [ label="does" ]
+     page -> referencable [ label="does" ]
+
+     addressbook -> person [ label="has many" ]
+     addressbook -> searchable [ label="does" style="dashed" ]
+
+     model -> cal [ label="has" ]
+     model -> wiki [ label="has" ]
+     model -> addressbook [ label="has" ]
+
+     person -> saveable [ label="does" style="dashed" ]
+     person -> serializable [ label="does" style="dashed" ]
+     person -> referencable [ label="does" style="dashed" ]
+
+     searchable -> db [ label="has" ]
+     saveable -> db [ label="has" ]
+
+     app [ label="Utiaji::App::Pim" ]
+     day [ label="Day" ]
+     cal [ label="Cal" ]
+     addressbook [ label="AddressBook" ]
+     referencable [ label="Referencable" ]
+     serializable [ label="Serializable" ]
+     searchable [ label="Searchable" ]
+     saveable [ label="Saveable" ]
+     person [ label="Person" ]
+     page [ label="Page" ]
+     wiki [ label="Wiki" ]
+     model [ label="Utiaji::Model::Pim" ]
+
+     db [ label="Utiaji::DB" ]
+
+    {rank=same; app model}
+    {rank=same; cal wiki}
+    {rank=same; day page person}
+    {rank=same; searchable saveable serializable referencable}
+}

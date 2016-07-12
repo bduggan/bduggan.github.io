@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Slide Presentation</title>
+    <link rel='stylesheet' type='text/css' href='css/app.css' />
+  </head>
+  <body>
+    <div class='reveal' id='utiaji'>
+      <div class='slides'>
+        
+          
+
+  <style>
+span.github {
+  font-weight:normal;
+  font-family: Helvetica, arial;
+}
+</style>
+
+<section title="Title">
+    <h3>Utiaji</h3>
+    Building an Application Specific Web Server in Perl 6<br><br>
+    Brian Duggan<br><br>
+    <small><svg aria-hidden="true" class="octicon octicon-mark-github" height="28" version="1.1" viewBox="0 0 16 16" width="28"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg> <span class='github'>bduggan</span>
+    <br>
+    bduggan@matatu.org
+    <br>
+    </small><br>
+    <img data-src='img/promptworks-logo.png' style='border:none;width:40%;box-shadow:none;'/>
+</section>
+
+
+
+
+        
+          
+
+  <style>
+</style>
+<section class='promptworks-slide' data-background='img/gears.png' data-background-size='auto' data-background-position='top right'>
+  <img src='img/promptworks_logo.png' alt='PromptWorks logo' style='border:none;box-shadow:none;' />
+  <p class='intro'>We craft software for companies that care about the details.</p>
+</section>
+
+
+
+
+        
+          
+
+  <section title="Intro">
+    <img data-src="img/frameworks.png" />
+</section>
+
+
+
+
+        
+          
+
+  <section title="Intro">
+    Web Frameworks
+    <pre><code data-trim class="language-diff">+ layer of abstraction for the webserver
++ focus on application rather than HTTP
++ handle aspects of performance, security
++ easy to add plugins
++ convenient to add hooks
++ provide relevant primitives
+- plugin architectures
+- plugin ecosystems
+- DSLs
+- vendor lock-in
+- maintenance cost
+- major version upgrades require rewrites
+- framework architecture impacts application architecture</code></pre>
+</section>
+
+
+
+
+        
+          
+
+  <section title="Intro">
+    Web Servers
+    <pre><code data-trim class="diff">+ implement a lot of HTTP
++ Have many features
++ Highly optimized
+- Also have specific APIs
+- Very complicated
+- Have maintenance costs
+</code></pre>
+</section>
+
+
+
+
+        
+          
+
+  <section title="Intro">
+    HTTP
+<pre><code class="text">1991 version 0.9
+1996 HTTP/1.0 (RFC 1945)
+1999 HTTP/1.1 (RFC 2616)
+2014 HTTP/1.1 updates (RFC 7230, 7231, 7232, 7233, 7234, 7235)
+2015 HTTP/2</code></pre>
+</section>
+
+
+
+
+        
+          
+
+  <section title="Intro">
+    "The Original HTTP as defined in 1991"<br>
+https://www.w3.org/Protocols/HTTP/AsImplemented.html
+
+<blockquote>This restricted protocol is very simple and may always be used when you
+do not need the capabilities of the full protocol which is backwards
+compatible.</blockquote>
+-- Tim BL
+</section>
+
+
+
+
+
+        
+          
+
+  <section title="Intro">
+    Let's build an application and implement just what we need.
+</section>
+
+
+
+
+
+        
+          
+
+  <section title="Outline">
+    <h3>Outline</h3>
+    <small>
+    <ul style='list-style-type:none;'>
+        <li> 0. Introduction
+        <li> 1. The Application: Utiaji
+        <li> 2. The Language: Perl 6
+    </ul>
+</small>
+</section>
+
+
+
+
+        
+          
+
+  <section>
+  
+      <section title="Utiaji">
+  <h2>Utiaji</h2>
+  <ul>
+    <li>What and Why
+    <li>How
+    <li>Bare Necessities
+  </ul>
+  <br>
+    <img width="178" height="238" data-src="img/arrow.png" />
+</section>
+
+  
+      <section title="What and Why">
+    <h4>Calendar<span style='color:green;'>✓</span>,
+        Wiki<span style='color:green;'>✓</span>,
+        Address Book<span style='color:orange;'>&bull;</span></h4>
+    <div>
+        <img data-src="img/cal.png" style='width:40%;'/>
+        <img data-src="img/wiki.png" style='width:40%;' />
+    </div>
+    Personal Information Organizer
+</section>
+
+  
+      <section title="What and Why">
+    <div style='font-size:80%;'>
+    <ul>
+        <li>History
+        <ul>
+          <li>2005 <a href="http://yacal.sf.net">yacal.sf.net</a>. CGI.pm, Data::Dumper</li>
+            <li>2006: Wiki, Addressbook, etc
+            <li>2011: Rewrite: Mojolicious, JQuery, Redis</li>
+            <li>2012: Google Calendar, Amazon Glacier
+            <li>2016: Perl 6, React.js, Postgres 9.5 (JSON)
+        </ul>
+        <li>Goals
+        <ul>
+            <li>Minimize maintenance
+            <li>Customize quickly
+            <li>Highly reliable
+            <li>Judicious use of shiny new tech
+        </ul>
+    </ul>
+    </div>
+</section>
+
+  
+      <section title="How">
+    <h3>Architecture</h3>
+    <img data-src="img/arch.png" style='border:none;' />
+</section>
+
+  
+      <section title="How">
+<h3>Data Model</h3>
+<pre><code class='text'>create table kv (
+    k varchar not null primary key, /* key */
+    v jsonb,                        /* value */
+    t timestamp default current_timestamp
+);
+
+create table kk (
+    f varchar references kv(k) on delete cascade, /* from */
+    t varchar references kv(k) on delete cascade, /* to */
+    primary key (f,t)
+);</code></pre>
+
+</section>
+
+  
+      <section title="Bare Necessities">
+    <h3>Requirements</h3>
+    <ul>
+            <li>Handle GET of HTML
+            <li>HTML Templates
+            <li>Handle GET and POST of JSON
+            <li>Serializing to JSON
+            <li>Socket operations
+            <li>Routing
+            <li>Modeling data
+            <li>Database Access
+    </ul>
+
+</section>
+
+
+  
+  </section>
+
+
+
+        
+          
+
+  <section>
+  
+      <section title="Perl 6">
+    <h3>Perl 6</h3>
+    <ul>
+      <li>Grammars
+      <li>Concurrency
+      <li>Syntax
+      <li>Types
+      <li>Caveats
+    </ul>
+    <br>
+    <img width="178" height="238" data-src="img/arrow.png" />
+
+</section>
+
+  
+      <style>
+.fragment.current-visible.visible:not(.current-fragment) {
+    display: none;
+    height:0px;
+    line-height: 0px;
+    font-size: 0px;
+}
+div.framed {
+    border:1px solid black;
+}
+</style>
+<section title="Grammars">
+    <aside class="notes">No query strings.
+        Templates become code.
+        Patterns become regexes.
+    </aside>
+    <h3>Grammars</h3>
+    <ul>
+        <li>Request Line
+        <li>Headers
+        <li>Templates
+        <li>Route Patterns
+    </ul>
+
+    <div class="fragment current-visible framed">
+        Request Lines
+<pre><code class="text" >GET /cal HTTP/1.1</code></pre>
+    </div>
+
+    <div class="fragment current-visible framed">
+<a href="https://github.com/bduggan/utiaji/tree/master/lib/Utiaji/RequestLine.pm6">RequestLine.pm6</a>
+<pre><code class="text" >rule TOP { &lt;verb&gt; &lt;path&gt; "HTTP/1.1" }
+token path { '/' &lt;segment&gt;* %% '/' }
+token segment { [ &lt;alpha&gt; | &lt;digit&gt; | '+' | '-' | '.' | ':' ]* }
+        </code></pre>
+    </div>
+
+    <div class="fragment current-visible framed">
+        Headers
+<pre><code class="text" >Host: utiaji.org
+Content-Length: 0</code></pre>
+    </div>
+
+<div class="fragment current-visible framed">
+<a href="https://github.com/bduggan/utiaji/tree/master/lib/Utiaji/Headers.pm6">Headers.pm6</a>
+<pre><code class="text" >rule TOP { [ &lt;header&gt; \n ]* }
+rule header { &lt;field-name&gt; ':' &lt;field-value&gt; }
+</code></pre>
+</div>
+
+    <div class="fragment current-visible framed">
+        Templates
+<pre><code class="text" >%| :$cal, *%args
+%== include $app, 'header', |%args;
+&lt;row&gt;
+&lt;div class="column" id='content'&gt;&lt;/div&gt;
+&lt;script type='text/javascript'&gt;
+  var state = &lt;%==  to-json($cal.initial-state) %&gt;;
+</code></pre>
+    </div>
+
+<div class="fragment current-visible framed">
+<a href="https://github.com/bduggan/utiaji/tree/master/lib/Utiaji/Template.pm6">Template.pm6</a>
+<pre><code class="text" >rule TOP {
+ [ ^ '%|' [ $&lt;signature&gt;=[ \V+ ] ] \n ]?
+ [    &lt;line=statement&gt;
+    | &lt;line=text&gt;
+ ] *
+}
+</code></pre>
+</div>
+
+<div class="fragment current-visible framed">
+        Route Patterns
+<pre><code class="text" >/cal
+/wiki/:page
+/cal/range/Δfrom/Δto
+</code></pre>
+</div>
+
+<div class="fragment current-visible framed">
+<a href="https://github.com/bduggan/utiaji/tree/master/lib/Utiaji/Pattern.pm6">Pattern.pm6</a>
+<pre><code class="text" >token TOP              { '/' &lt;part&gt; *%% '/' }
+token part             { &lt;literal&gt; || &lt;placeholder&gt; }
+token placeholder      { &lt;placeholder_word&gt; | &lt;placeholder_date&gt; }
+token placeholder_date { 'Δ' &lt;var&gt; }
+token placeholder_word { ':' &lt;var&gt; }
+</code></pre>
+</div>
+
+
+
+
+</section>
+
+  
+      <section title="Concurrency">
+    <h3>Concurrency</h3>
+    A <b>supply</b> generates a sequence of values.<br>
+    To <b>tap</b> a supply, use <b>tap</b> or <b>react</b> + <b>whenever</b>.
+
+<div class="fragment current-visible framed">
+<pre><code class="text">my $gatsby = Supplier.new;
+
+# version 1
+$gatsby.Supply.tap(
+      { say "got $_" },
+      done =&gt; { say "bye" },
+      quit =&gt; { say "quitting: $_"} );
+
+$gatsby.emit('wine');
+$gatsby.quit("Argh!");
+$gatsby.done;
+</code></pre>
+</div>
+
+<div class="fragment current-visible framed">
+<pre><code class="text">my $gatsby = Supplier.new;
+
+# version 2
+start react whenever $gatsby.Supply
+{   say "got $_";
+    LAST { say "bye" }
+    QUIT { say "quitting: $_" }
+}
+
+$gatsby.emit('wine');
+$gatsby.quit("Argh!");
+$gatsby.done;
+</code></pre>
+</div>
+
+<div class="fragment current-visible framed">
+<pre><code class="text">my $gatsby = Supplier.new;
+start react whenever IO::Socket::Async.listen($.host,$.port) {
+    self.handle-connection($^connection);
+    QUIT { debug "socket quit"; }
+    LAST { debug "socket done"; }
+}
+</code></pre>
+</div>
+
+<div class="fragment current-visible framed">
+<pre><code class="text">sub handle-connection {
+  whenever $conn.Supply(:bin) {
+     if self.generate-response($bytes,$^buf) { ... }
+     QUIT { debug "connection quit"; }
+     LAST { debug "connection done"; }
+  }
+}
+</code></pre>
+</div>
+
+</section>
+
+  
+      <section title="Concurrency">
+    <h3>Promises</h3>
+    <pre><code class="text">
+my $timeout = Promise.in(5).then({
+  $connection.close unless $closed;
+});
+</code></pre>
+
+</section>
+
+  
+      <section title="Syntax">
+    <h3>Numeric Parameters</h3>
+        <pre><code class="text">self.render: $res, status => 404</code></pre>
+        <pre><code class="text">self.render: $res, :status&lt;404&gt; </code></pre>
+        <pre><code class="text">self.render: $res, :404status</code></pre>
+</section>
+
+<section title="Syntax">
+    <h3>Implicit Parameters</h3>
+    <pre><code class="text">sub handle($req,$res) {
+  self.render($res, text => "hello, { $req.json&lt;name&gt; }")
+}</code></pre>
+    <pre><code class="text">sub ($req,$res) {
+  self.render: $res, text => "hello, { $req.json&lt;name&gt; }"
+}</code></pre>
+    <pre><code class="text">-&gt; $req,$res { self.render: $res, text => "hello, { $req.json&lt;name&gt; }" }</code></pre>
+    <pre><code class="text">{ self.render: $^res, text => "hello, { $req.json&lt;name&gt; }"  }</code></pre>
+</section>
+
+<section title="Syntax">
+    <h3>Signature Objects</h3>
+    <pre><code class="text">$cb.signature.count == 1 ?? $cb($res) !! $cb($req,$res);</code></pre>
+    <pre><code class="text">$cb.count == 1 ?? $cb($res) !! $cb($req,$res);</code></pre>
+    <h3>Multi-dispatch</h3>
+<pre><code class="text">multi method render($res, :$text!, :$status=200) {</code></pre>
+<pre><code class="text">multi method render($res, :$json!, :$status=200) {</code></pre>
+<pre><code class="text">multi method render($res, :$template!, :$status=200) {</code></pre>
+<pre><code class="text">multi method render($res, Pair $p) {</code></pre>
+</section>
+
+<section title="Syntax">
+    <h3>Topicalizing</h3>
+    <pre><code class="text">$_ = $dog;</code></pre>
+    <pre><code class="text">given $dog { ...</code></pre>
+    <pre><code class="text">with $dog { ...</code></pre>
+    <pre><code class="text">for $dog { ...</code></pre>
+    <pre><code class="text">.bark</code></pre>
+</section>
+
+
+<section title="Syntax">
+    <h3>Match Object ($/)</h3>
+    <pre><code class="text">$/{"day"}</code></pre>
+    <pre><code class="text">$/&lt;day&gt;</code></pre>
+    <pre><code class="text">$&lt;day&gt;</code></pre>
+</section>
+
+
+
+<section title="Syntax">
+  <h3>No DSL </h3>
+  (or instant DSL)
+<pre><code class="text">method setup {
+    with self {
+      .get: '/', { self.redirect_to: $^res, '/wiki' }
+      .get: '/cal/range/Δfrom/Δto', -&gt; $req, $/
+          { ...$&lt;from&gt;...$&lt;to&gt;... }
+      .post: '/cal/', { ...$^req...$^res...}
+      ...
+    }
+</code></pre>
+
+</section>
+
+<section title="Types">
+    <h3>Types</h3>
+    <pre><code class="text">my Buf $buf = Buf.new(65,66,67);</code></pre>
+    <pre><code class="text">my Buf[uint8] $buf = Buf[uint8].new(65,66,67);</code></pre>
+    <pre><code class="text">my Str $body = $buf.decode('UTF-8');</code></pre>
+    <pre><code class="text">my UInt $content-length = $body.encode('UTF-8').elems;</code></pre>
+</section>
+
+
+
+  
+      <section title="Types">
+    <h3>Object Hierarchies</h3>
+    <img data-src="img/http-model.svg" style='border:none;width:60%;'/>
+    <pre><code class="text">unit class Utiaji::App;
+has $.router handles &lt;get post put&gt; = Utiaji::Router.new;</code></pre>
+
+</section>
+
+  
+      <section title="Types">
+    <h3>Object Hierarchies</h3>
+    <img style='width:52%;border:none;' data-src="img/utiaji-model.svg" />
+    <pre><code class="text">class Utiaji::Model::Pim { .. }</code></pre>
+</section>
+
+  
+      <section title="Types">
+    <h3>Set Operations</h3>
+<pre><code class="text">for ( @new (-) @old ).keys { ...save... }
+for ( @old (-) @new ).keys { ..remove.. }</code></pre>
+
+<pre><code class="text">method !header_valid(Buf[] $header) {
+   return $header ⊂ (10,13,32..127);
+}</code></pre>
+
+
+</section>
+
+  
+      <section title="Caveats">
+    <h3> ⚠️ Rakudo to-json</h3>
+<pre><code class="text">say to-json( "🍺")
+</code></pre>
+<pre><code>"\u1f37a"
+</code></pre><pre><code class="text">use JSON::Fast;
+say to-json( "🍺")'
+</code></pre><pre><code>"🍺"
+</code></pre>
+
+</section>
+<section title="Caveats">
+
+    <h3> ⚠️ Single Argument R ule </h3>
+    <pre><code class="text">say [ { a => 1 } ]  eqv [ a => 1 ];
+say [ { a => 1 }, ] eqv [ a => 1 ];
+</code></pre>
+<pre><code>True
+False</code></pre>
+
+
+</section>
+
+  
+      <section title="Caveats">
+    <h3>Testing</h3>
+    .travis.yaml
+    <img data-src='img/travis-passing.svg' style='border:none;box-shadow:none;width:10%;float:right;'/>
+    <pre><code class="text">cache:
+  directories:
+    - $HOME/.rakudobrew</code></pre>
+    circle.yml
+    <img data-src='img/circle-passing.svg' style='border:none;box-shadow:none;width:10%;float:right;'/>
+    </code></pre>
+    <pre><code class="text">dependencies:
+  cache_directories:
+    - ../.rakudobrew</code></pre>
+    install.sh
+    <pre><code class="text">panda --notests install DBIish
+panda install HTTP::Tinyish</code></pre>
+
+</section>
+
+  
+      <section title="4-1Wishlist">
+    <h3>Wishlist</h3>
+    <ul>
+     <li>Better dependency management
+     <li>Coercion (dates to strings, matches to strings)
+     <li>leave
+    </ul>
+<pre><code class="text">$ perl6 -e '{leave}'
+leave not yet implemented. Sorry.
+  in block <unit> at -e line 1</code></pre>
+
+</section>
+
+  
+  </section>
+
+
+
+        
+          
+
+  <section title="The End">
+    <h3>Thank you</h3>
+    Brian Duggan<br>
+    <a href="http://utiaji.org">utiaji.org</a><br>
+    <a href="http://github.com/bduggan/utiaji">github.com/bduggan/utiaji</a>
+</section>
+
+
+
+
+        
+      </div>
+    </div>
+    <script type='text/javascript' src='js/app.js'></script>
+  </body>
+</html>

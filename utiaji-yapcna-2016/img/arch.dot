@@ -1,0 +1,17 @@
+digraph z {
+browser [label = "Browser requests HTML or JSON (React.js)"]
+static  [label = "Static Stuff" ]
+dynamic [label = "Dynamic Stuff" ]
+perl6   [label = "Perl 6" ]
+templates [ label = "Templates (HTML)" ]
+json [ label = "JSON" ]
+browser -> nginx
+nginx -> static
+nginx -> dynamic
+dynamic -> perl6
+perl6 -> templates
+perl6 -> json
+json -> postgres
+templates -> postgres
+}
+

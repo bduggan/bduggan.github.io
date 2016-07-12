@@ -1,0 +1,26 @@
+
+digraph z {
+   server -> handler [ label="does" ];
+   handler -> dispatcher [ label="does" ];
+   server [ label="Utiaji::Server" ]
+   handler [ label="Utiaji::Handler" ]
+   dispatcher [ label="Utiaji::Dispatcher" ]
+   { rank=same; server handler dispatcher; }
+   server -> app [ label="has" ];
+   app [ label="Utiaji::App" ]
+   pim -> app [label="is"]
+   pim [ label="Utiaji::App::Pim" ]
+   dispatcher -> request [label="has"]
+   dispatcher -> response [label="has"]
+   app -> router [label="has"]
+   pim -> router [ label="has" ]
+   router [ label="Utiaji::Router" ]
+   request [ label="Utiaji::Request" ]
+   response [ label="Utiaji::Response" ]
+   router -> route [label ="has many" ]
+   route [label="Utiaji::Route" ]
+   route -> pattern [label = "has" ]
+   pattern [label="Utiaji::Pattern"]
+   {rank=same; app pim}
+   {rank=same; router route pattern}
+}
