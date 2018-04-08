@@ -2024,7 +2024,7 @@ function selectTalk(id, store) {
     console.log('called selectTalk', id);
     return function (dispatch, getState) {
         _jquery2.default.ajax({
-            url: '/talk/' + id,
+            url: 'http://' + host + '/talk/' + id,
             type: 'GET',
             contentType: 'application/json',
             success: function success(talk) {
