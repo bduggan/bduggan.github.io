@@ -1,4 +1,4 @@
-var slideIndex;
+var slideIndex = 1;
 var slides;
 const log = e => console.log(e)
 
@@ -11,7 +11,7 @@ function loadPage() {
     slideIndex = n;
     showDivs(n);
   } else {
-    n = 0
+    n = 1
     slideIndex = 1;
     showDivs(n);
     console.log('loading page 1')
