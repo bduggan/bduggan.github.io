@@ -1,0 +1,923 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    </meta>
+  </head>
+  <title>
+    p6-practical-regexes
+  </title>
+  <link href="w3.css" rel="stylesheet">
+
+  </link>
+  <link href="index.css" rel="stylesheet">
+
+  </link>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="styleshieet">
+
+  </link>
+  <body>
+    <div class="w3-content w3-display-container w3-padding w3-border w3-card w3-round-large w3-margin full w3-white">
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-xlarge w3-display-middle">
+          <h1 class="w3-center">
+            Practical Perl 6 Regexes
+          </h1>
+<hr          />
+          <h3 class="w3-center">
+            <p>
+              Brian Duggan
+            </p>
+            <small>
+              bduggan@matatu.org
+            </small>
+          </h3>
+<hr          />
+          <small>
+            DC Baltimore Perl Workshop, April 6, 2019
+          </small>
+        </div>
+      </div>
+      <div class="w3-xxxlarge w3-display-middle slide w3-center">
+        <p>
+          <p>
+            <img class="w3-image" src="logo.png"></img>
+          </p>
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <center>
+          Why?
+        </center>
+        <p>
+          Perl 5 set the standard for regexes BUT
+        </p>
+        <ul>
+
+          <li>            terse          </li>
+          <li>            too
+            many
+            special
+            cases          </li>
+          <li>            "write
+            only"          </li>
+          <li>            not
+            composable          </li>
+
+        </ul>
+        <p>
+          Perl 6 regexes
+        </p>
+        <ul>
+
+          <li>            not
+            as
+            terse          </li>
+          <li>            consistent          </li>
+          <li>            more
+            readable          </li>
+          <li>            first
+            class
+            objects.
+            Building
+            blocks
+            for
+            grammars.          </li>
+
+        </ul>
+      </div>
+      <div class="slide w3-xlarge w3-display-middle w3-margin">
+        <div class="w3-xlarge w3-display-middle">
+          <center>
+            Outline
+          </center>
+          <ul class="w3-ul w3-border">
+
+            <li>              <b> Characters               </b>            </li>
+            <li>              Groups            </li>
+            <li>              Quantifiers            </li>
+            <li>              Capturing            </li>
+            <li>              Composing            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Characters
+        </div>
+        <h2>
+          Question:
+        </h2>
+        <p>
+          Which of these print <code>True</code>?  (in Perl 6)
+        </p>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-19-3039592-0').classList.toggle('w3-hide')">say so 'abc' =~ /b/        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-19-3039592-0">===SORRY!=== Error while compiling example.p6
+Unsupported use of =~ to do pattern matching; in Perl 6 please use ~~
+at example.p6:1
+------&gt; say so 'abc' =~&lt;HERE&gt; /b/        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-19-2841265-0').classList.toggle('w3-hide')">say so 'abc' ~~ /b/        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-19-2841265-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-23-3828196-0').classList.toggle('w3-hide')">say so 'abc' ~~ / 'b' /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-23-3828196-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-27-4198614-0').classList.toggle('w3-hide')">say so 'abc' ~~ regex { b }        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-27-4198614-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexl-57-10897853-0').classList.toggle('w3-hide')">my regex letter-b {
+   b
+}
+say so 'abc' ~~ / &lt;letter-b&gt; /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexl-57-10897853-0">True        </pre>
+
+        <p>
+          Use <code>/</code> or <code>regex</code> to make a regex.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Characters
+        </div>
+        <h2>
+          Literals
+        </h2>
+        <p>
+          How about these?
+        </p>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysogo-25-3840293-0').classList.toggle('w3-hide')">say so 'good' ~~ / good /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysogo-25-3840293-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysono-33-5594330-0').classList.toggle('w3-hide')">say so 'not-good' ~~ / not-good /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysono-33-5594330-0">===SORRY!===
+Unrecognized regex metacharacter - (must be quoted to match literally)
+at example.p6:1
+------&gt; say so 'not-good' ~~ / not&lt;HERE&gt;-good /
+Unable to parse regex; couldn't find final '/'
+at example.p6:1
+------&gt; say so 'not-good' ~~ / not-&lt;HERE&gt;good /        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysono-35-6316132-0').classList.toggle('w3-hide')">say so 'not-good' ~~ / 'not-good' /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysono-35-6316132-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosc-27-5235755-0').classList.toggle('w3-hide')">say so 'schőn' ~~ / schőn /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosc-27-5235755-0">True        </pre>
+
+        <p>
+          Use quotes inside a regex.  <b>Everything</b> except <b>alphanumeric characters</b> and <b>underscores</b> must be quoted.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Characters
+        </div>
+        <h2>
+          Spaces
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-23-4104440-0').classList.toggle('w3-hide')">say so 'abc' ~~ / abc /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-23-4104440-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-25-4491607-0').classList.toggle('w3-hide')">say so 'abc' ~~ / a b c /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-25-4491607-0">Potential difficulties:
+    Space is not significant here; please use quotes or :s (:sigspace) modifier (or, to suppress this warning, omit the space, or otherwise change the spacing)
+    at example.p6:1
+    ------&gt; say so 'abc' ~~ / a&lt;HERE&gt; b c /
+    Space is not significant here; please use quotes or :s (:sigspace) modifier (or, to suppress this warning, omit the space, or otherwise change the spacing)
+    at example.p6:1
+    ------&gt; say so 'abc' ~~ / a b&lt;HERE&gt; c /
+True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-27-3263471-0').classList.toggle('w3-hide')">say so 'a b c' ~~ / a b c /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-27-3263471-0">Potential difficulties:
+    Space is not significant here; please use quotes or :s (:sigspace) modifier (or, to suppress this warning, omit the space, or otherwise change the spacing)
+    at example.p6:1
+    ------&gt; say so 'a b c' ~~ / a&lt;HERE&gt; b c /
+    Space is not significant here; please use quotes or :s (:sigspace) modifier (or, to suppress this warning, omit the space, or otherwise change the spacing)
+    at example.p6:1
+    ------&gt; say so 'a b c' ~~ / a b&lt;HERE&gt; c /
+False        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-29-3490866-0').classList.toggle('w3-hide')">say so 'a b c' ~~ / 'a b c' /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-29-3490866-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-35-5373835-0').classList.toggle('w3-hide')">say so 'a b c' ~~ / a ' ' b ' ' c /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-35-5373835-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-35-4871725-0').classList.toggle('w3-hide')">say so 'a b c' ~~ / a \s+ b \s+ c /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-35-4871725-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-69-11515635-0').classList.toggle('w3-hide')">say so 'a b c' ~~ / a 
+    # hey, this is a comment
+    \s+ b \s+ c /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-69-11515635-0">True        </pre>
+
+        <p>
+          Spaces are not significant.  Neither are comments.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Characters
+        </div>
+        <h2>
+          Adverbs
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-138-28030102-0').classList.toggle('w3-hide')">say so 'a b c' ~~ /a \s* b \s* c/;
+say so 'a b c' ~~ /a &lt;ws&gt; b &lt;ws&gt; c/;
+say so 'a b c' ~~ /:s a b c/;
+say so 'a b c' ~~ /:sigspace a b c/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-138-28030102-0">True
+True
+True
+True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('sayso-56-12666491-0').classList.toggle('w3-hide')">say so 'ABC' ~~ /:i b/;
+say so 'ABC' ~~ /:ignorecase b/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="sayso-56-12666491-0">True
+True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-53-11629695-0').classList.toggle('w3-hide')">say so 'abc' ~~ /:r b/;
+say so 'abc' ~~ /:ratchet b/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-53-11629695-0">True
+True        </pre>
+
+        <p>
+          Adverbs start with <code>:</code>.
+        </p>
+        <p>
+          Ratcheting makes matching much faster -- no backtracking.
+        </p>
+        <p>
+          Sigspace improves readability.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Characters
+        </div>
+        <h2>
+          Tokens and rules
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoab-62-11427307-0').classList.toggle('w3-hide')">say so 'abc' ~~ regex { :r abc }
+say so 'abc' ~~ token { abc }        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoab-62-11427307-0">True
+True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-69-11685785-0').classList.toggle('w3-hide')">say so 'a b c' ~~ token { :s a b c }
+say so 'a b c' ~~ rule { a b c }        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-69-11685785-0">True
+True        </pre>
+
+        <p>
+          A <code>token</code> is a regex with ratching.
+        </p>
+        <p>
+          A <code>rule</code> is a token with sigspace.
+        </p>
+        <p>
+          These are deep concepts!  Tokens and rules are building blocks for
+          grammars.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Characters
+        </div>
+        <h2>
+          Back to basics
+        </h2>
+        <p>
+          Vehicle Identification Numbers
+        </p>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myvin-113-23228074-0').classList.toggle('w3-hide')">my $vin = '1FAHP3GNXBW107581';
+if $vin ~~ / I | O | Q / {
+  say &quot;Invalid VIN&quot;
+} else {
+  say &quot;Maybe it's okay&quot;;
+}        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myvin-113-23228074-0">Maybe it's okay        </pre>
+
+        <p>
+          For alternation, use <code>|</code>.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Character classes
+        </div>
+        <h2>
+          TMTOWDI
+        </h2>
+        <p>
+          Alternation
+        </p>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('sayso-30-4360000-0').classList.toggle('w3-hide')">say so 'QUIT' ~~ / I | O | Q /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="sayso-30-4360000-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('sayso-32-3411525-0').classList.toggle('w3-hide')">say so 'QUIT' ~~ / | I | O | Q /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="sayso-32-3411525-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('sayso-70-5259195-0').classList.toggle('w3-hide')">say so 'QUIT' ~~ / | I
+                   | O
+                   | Q /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="sayso-70-5259195-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('sayso-28-5244432-0').classList.toggle('w3-hide')">say so 'QUIT' ~~ / &lt;[IOQ]&gt; /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="sayso-28-5244432-0">True        </pre>
+
+        <p>
+          You can put an extra <code>|</code> at the beginning.
+        </p>
+        <p>
+          Construct character classes using <code>&lt;[</code> and <code>]&gt;</code>.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Character classes
+        </div>
+        <h2>
+          Character classes
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoe-31-4978411-0').classList.toggle('w3-hide')">say so 'e' ~~ / &lt;[a e i o u]&gt; /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoe-31-4978411-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysob-26-4430187-0').classList.toggle('w3-hide')">say so 'b' ~~ / &lt;[a..e]&gt; /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysob-26-4430187-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexv-62-11573978-0').classList.toggle('w3-hide')">my regex vowels { &lt;[a e i o u]&gt; }
+say so 'e' ~~  / &lt;vowels&gt; /;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexv-62-11573978-0">True        </pre>
+
+        <p>
+          Put lists of characters or ranges in character classes.
+        </p>
+        <p>
+          Spaces can be in character classes.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Character classes
+        </div>
+        <h2>
+          Negate Character classes
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexn-100-24070279-0').classList.toggle('w3-hide')">my regex not-vowels {
+  &lt;-[aeiou]&gt;
+}
+say so 'x' ~~ / &lt;not-vowels&gt; /;
+say so '!' ~~ / &lt;not-vowels&gt; /;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexn-100-24070279-0">True
+True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexc-107-23281563-0').classList.toggle('w3-hide')">my regex consonants {
+ &lt;[a..z] - [aeiou]&gt;
+}
+say so '!' ~~ / &lt;consonants&gt; /;
+say so 'x' ~~ / &lt;consonants&gt; /;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexc-107-23281563-0">False
+True        </pre>
+
+        <p>
+          Take the complement of a character class <code>&lt;-[</code> ... <code>]&gt;</code>.
+        </p>
+        <p>
+          Or use <code>-</code> to take the set difference.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-middle w3-margin">
+        <div class="w3-xlarge w3-display-middle">
+          <center>
+            Outline
+          </center>
+          <ul class="w3-ul w3-border">
+
+            <li>              Characters            </li>
+            <li>              <b> Groups               </b>            </li>
+            <li>              Quantifiers            </li>
+            <li>              Capturing            </li>
+            <li>              Composing            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Groups
+        </div>
+        <h2>
+          Grouping
+        </h2>
+        <p>
+          Brackets make a non-capturing group.
+        </p>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-82-14037448-0').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ /
+  [ sat | sun ] ', '
+  [ mar | apr | may ]
+  &lt;[0..9]&gt; 
+ /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-82-14037448-0">False        </pre>
+
+        <p>
+          Like <code>(?:...)</code> from Perl 5.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Groups
+        </div>
+        <h2>
+          Grouping
+        </h2>
+        Digression -- why did that not match?
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-39-6988776-0').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ / 'sat, apr 6' /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-39-6988776-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-45-8537399-0').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ / 'sat, ' 'apr ' '6' /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-45-8537399-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-45-8003456-0').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ / sat ', ' apr ' ' 6 /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-45-8003456-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-90-16000532-0').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ /
+   [ sat | sun ] ', '
+   [ mar | apr | may ]
+   ' '
+   &lt;[0..9]&gt; /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-90-16000532-0">True        </pre>
+
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Groups
+        </div>
+        <h2>
+          Grouping
+        </h2>
+        Spot the difference
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-82-14037448-2').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ /
+  [ sat | sun ] ', '
+  [ mar | apr | may ]
+  &lt;[0..9]&gt; 
+ /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-82-14037448-2">False        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-91-16486539-0').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ /
+   [ sat | sun ] ', '
+   [ mar | apr | may ]
+   ' '
+   &lt;[0..9]&gt;
+ /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-91-16486539-0">True        </pre>
+
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Groups
+        </div>
+        <h2>
+          Anyway, back to groups
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysosa-83-15863146-0').classList.toggle('w3-hide')">say so 'sat, apr 6' ~~ /
+   &lt; sat sun&gt; ', '
+   &lt; mar apr may&gt;
+   ' '
+   &lt;[0..9]&gt;
+ /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysosa-83-15863146-0">True        </pre>
+
+        <p>
+          Start <code>&lt; </code> <code>&gt;</code> with a space to make a word list.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Groups
+        </div>
+        <h2>
+          As usual, tmtowtdi
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('mydays-115-22367964-0').classList.toggle('w3-hide')">my @days = &lt;sat sun&gt;;
+my @months = &lt;mar apr may&gt;;
+say so 'sat, apr 6' ~~ /
+   @days ', ' @months ' '
+   &lt;[0..9]&gt;
+ /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="mydays-115-22367964-0">True        </pre>
+
+        <p>
+          Or use an array.  Scalar are interpolated too, btw.
+        </p>
+        <p>
+          How about two digit days?
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-middle w3-margin">
+        <div class="w3-xlarge w3-display-middle">
+          <center>
+            Outline
+          </center>
+          <ul class="w3-ul w3-border">
+
+            <li>              Characters            </li>
+            <li>              Groups            </li>
+            <li>              <b> Quantifiers               </b>            </li>
+            <li>              Capturing            </li>
+            <li>              Composing            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Quantifiers
+        </div>
+        <h2>
+          Quantifiers
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-30-4069370-0').classList.toggle('w3-hide')">say so 'a' ~~ / a? /; # 0 or 1        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-30-4069370-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-33-5241597-0').classList.toggle('w3-hide')">say so 'a' ~~ / a* /; # 0 or more        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-33-5241597-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-33-5244619-0').classList.toggle('w3-hide')">say so 'a' ~~ / a+ /; # 1 or more        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-33-5244619-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-35-5859283-0').classList.toggle('w3-hide')">say so 'a' ~~ / a**2 /; # exactly 2        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-35-5859283-0">False        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('saysoa-35-5952694-0').classList.toggle('w3-hide')">say so 'a' ~~ / a**1..5 /; # 1 to 5        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="saysoa-35-5952694-0">True        </pre>
+
+        <p>
+          Use <code>?</code>, <code>*</code>, and <code>+</code> as usual.
+        </p>
+        <p>
+          Use <code>**</code> (exponentiation) for values or ranges.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Quantifiers
+        </div>
+        <h2>
+          Quantifiers
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('mydays-123-25491135-0').classList.toggle('w3-hide')">my @days = &lt;sat sun&gt;;
+my @months = &lt;mar apr may&gt;;
+say so 'sat, apr 6' ~~ /
+   @days ', ' @months ' '
+   &lt;[0..9]&gt; ** 1..2
+ /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="mydays-123-25491135-0">True        </pre>
+
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Quantifiers
+        </div>
+        <h2>
+          Modified Quantifiers
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexp-114-22986628-0').classList.toggle('w3-hide')">my regex part { &lt;-[/]&gt;+ }
+my regex path { '/' [ &lt;part&gt; '/' ]* &lt;part&gt; }
+say so '/home/brian/talk.txt' ~~ / &lt;path&gt; /        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexp-114-22986628-0">True        </pre>
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexp-106-20916244-0').classList.toggle('w3-hide')">my regex part { &lt;-[/]&gt;+ }
+my regex path { '/' &lt;part&gt;* % '/' }
+say so '/home/brian/talk.txt' ~~ / &lt;path&gt; /;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexp-106-20916244-0">True        </pre>
+
+        "separated by" <code>A* % B</code> is a shorthand for <code>[ AB ]* A?</code>.
+        <p>
+          Works for other quantifiers too (`+`, <code>**</code>)
+        </p>
+        <p>
+          Useful with <code>,</code>.
+        </p>
+        <p>
+          See also <code>%%</code>.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-middle w3-margin">
+        <div class="w3-xlarge w3-display-middle">
+          <center>
+            Outline
+          </center>
+          <ul class="w3-ul w3-border">
+
+            <li>              Characters            </li>
+            <li>              Groups            </li>
+            <li>              Quantifiers            </li>
+            <li>              <b> Capturing               </b>            </li>
+            <li>              Composing            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Capturing
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('sayabc-21-4328430-0').classList.toggle('w3-hide')">say 'abc' ~~ / abc /;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="sayabc-21-4328430-0">｢abc｣        </pre>
+
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('mymatch-46-11351743-0').classList.toggle('w3-hide')">my $match = 'abc' ~~ / abc /;
+say $match.WHAT;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="mymatch-46-11351743-0">(Match)        </pre>
+
+        <p>
+          A match returns a match object.
+        </p>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('abc-37-8341379-0').classList.toggle('w3-hide')">'abc' ~~ / abc/;
+say $/.WHAT;
+say $/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="abc-37-8341379-0">(Match)
+｢abc｣        </pre>
+
+        <p>
+          The most recent match is stored in <code>$/</code>.
+        </p>
+        <p>
+          Use <code>say</code> to print <code>$/.gist</code> which provides the match tree.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('hellowo-54-10125437-0').classList.toggle('w3-hide')">'hello, world' ~~ /^ [ &lt;-[,]&gt;+ ] ', ' (.*) $/;
+say $/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="hellowo-54-10125437-0">｢hello, world｣
+ 0 =&gt; ｢world｣        </pre>
+
+        <p>
+          Parentheses will capture.
+        </p>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('hellowo-69-14479153-0').classList.toggle('w3-hide')">'hello, world' ~~ /^ [ &lt;-[,]&gt;+ ] ', ' (.*) $/;
+say $/[0];
+say ~$/[0];        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="hellowo-69-14479153-0">｢world｣
+world        </pre>
+
+        <p>
+          You can get positional captures by treating <code>$/</code> like an array.
+        </p>
+        <p>
+          Stringify with <code>~</code>.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Named Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexw-77-15104177-0').classList.toggle('w3-hide')">my regex word { &lt;-[,]&gt;+ }
+'hello, world' ~~
+  /^ &lt;word&gt; ', ' (.*) $/;
+say $/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexw-77-15104177-0">｢hello, world｣
+ word =&gt; ｢hello｣
+ 0 =&gt; ｢world｣        </pre>
+
+        <p>
+          Named captures use the names of embedded regexes.
+        </p>
+        <p>
+          The match tree can help.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Named Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexw-129-26986981-0').classList.toggle('w3-hide')">my regex word { &lt;-[,]&gt;+ }
+'hello, world' ~~
+  /^ &lt;word&gt; ', ' (.*) $/;
+say $/{'word'};
+say $/&lt;word&gt;;
+say $&lt;word&gt;;   # all the same        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexw-129-26986981-0">｢hello｣
+｢hello｣
+｢hello｣        </pre>
+
+        <p>
+          When accessing named captures in <code>$/</code>, you can omit the <code>/</code>.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Named Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexw-100-20956932-0').classList.toggle('w3-hide')">my regex word { &lt;-[,]&gt;+ }
+'hello, world' ~~
+  /^ &lt;word&gt; ', ' &lt;word&gt; $/;
+say $&lt;word&gt;;
+say $&lt;word&gt;[0];        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexw-100-20956932-0">[｢hello｣ ｢world｣]
+｢hello｣        </pre>
+
+        <p>
+          It's matches all the way down.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Named Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexw-82-16893445-0').classList.toggle('w3-hide')">my regex word { &lt;-[,]&gt;+ }
+say 'new york, new york' ~~
+  /^ &lt;word&gt; ', ' $&lt;word&gt; $/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexw-82-16893445-0">｢new york, new york｣
+ word =&gt; ｢new york｣        </pre>
+
+        <p>
+          You can interpolate the match variable in the regex
+          to be clever.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Named Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexw-79-16291808-0').classList.toggle('w3-hide')">my regex word { &lt;-[,]&gt;+ }
+say 'oh, ho' ~~
+/^ &lt;word&gt; ', ' &lt;{ $&lt;word&gt;.flip }&gt; $/;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexw-79-16291808-0">｢oh, ho｣
+ word =&gt; ｢oh｣        </pre>
+
+        <p>
+          You can even put code in the regex if you want to be very
+          clever.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Restricted Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexc-124-28324488-0').classList.toggle('w3-hide')">my regex char {
+ &lt;-[&quot;]&gt; | '\&quot;' 
+}
+my regex quoted {
+   '&quot;' &lt;char&gt;* '&quot;'
+}
+'a &quot;good&quot; program' ~~ / &lt;quoted&gt; /;
+say ~$&lt;quoted&gt;;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexc-124-28324488-0">&quot;good&quot;        </pre>
+
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Capturing
+        </div>
+        <h2>
+          Restricted Captures
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('myregexc-130-26517970-0').classList.toggle('w3-hide')">my regex char {
+ &lt;-[&quot;]&gt; | '\&quot;' 
+}
+my regex quoted {
+   '&quot;' &lt;( &lt;char&gt;* )&gt; '&quot;'
+}
+'a &quot;good&quot; program' ~~ / &lt;quoted&gt; /;
+say ~$&lt;quoted&gt;;        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="myregexc-130-26517970-0">good        </pre>
+
+        <p>
+          Pro tip: use <code>&lt;(</code> and <code>&gt;)</code> to restrict the entire match.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-middle w3-margin">
+        <div class="w3-xlarge w3-display-middle">
+          <center>
+            Outline
+          </center>
+          <ul class="w3-ul w3-border">
+
+            <li>              Characters            </li>
+            <li>              Groups            </li>
+            <li>              Quantifiers            </li>
+            <li>              Capturing            </li>
+            <li>              <b> Composing               </b>            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Composing
+        </div>
+        <h2>
+          Grammars
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('grammar-167-35961806-0').classList.toggle('w3-hide')">grammar G {
+  regex TOP { 'a ' &lt;quoted&gt; ' program' }
+  regex letters { &lt;[a..z]&gt;+ }
+  regex quoted {
+     '&quot;' &lt;( &lt;letters&gt; )&gt; '&quot;'
+  }
+}
+say G.parse('a &quot;good&quot; program');        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="grammar-167-35961806-0">｢a &quot;good&quot; program｣
+ quoted =&gt; ｢good｣
+  letters =&gt; ｢good｣        </pre>
+
+        <p>
+          Put regexes together into grammars.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Composing
+        </div>
+        <h2>
+          Grammars
+        </h2>
+
+        <pre class="w3-code w3-xxlarge" onclick="document.getElementById('grammar-160-32506521-0').classList.toggle('w3-hide')">grammar G {
+  rule TOP { a &lt;quoted&gt; program }
+  token letters { &lt;[a..z]&gt;+ }
+  token quoted {
+     '&quot;' &lt;( &lt;letters&gt; )&gt; '&quot;'
+  }
+}
+say G.parse('a &quot;good&quot; program');        </pre>
+        <pre class="w3-code w3-black w3-hide w3-xlarge" id="grammar-160-32506521-0">｢a &quot;good&quot; program｣
+ quoted =&gt; ｢good｣
+  letters =&gt; ｢good｣        </pre>
+
+        <p>
+          Reminders --
+        </p>
+        <p>
+          Use <code>token</code> for regexes that don't need backtracking.
+        </p>
+        <p>
+          Use <code>role</code> for tokens with sigspace.
+        </p>
+      </div>
+      <div class="slide w3-xlarge w3-display-top w3-margin">
+        <div class="w3-right w3-small w3-text-grey">
+          Composing
+        </div>
+        <h2>
+          Grammars
+        </h2>
+        <p>
+          Examples on modules.perl6.org and docs.perl6.org.
+        </p>
+        <p>
+          Also <a href="https://github.com/moritz/json/blob/master/lib/JSON/Tiny/Grammar.pm" target="blank">JSON-Tiny</a>
+        </p>
+        <p>
+          Or <a href="https://github.com/bduggan/p6-protobuf/blob/master/protobuf.pm6" target="blank">Protobuf</a> (EBNF).
+        </p>
+        <p>
+          Have fun!
+        </p>
+      </div>
+      <div class="w3-xxxlarge w3-display-middle slide w3-center">
+        <p>
+          The End
+        </p>
+      </div>
+      <footer class="w3-display-bottommiddle">
+        <div id="page">
+          1
+        </div>
+      </footer>
+    </div>
+    <script src="index.js" type="text/javascript">
+
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,23 @@
+html, body {
+  height:98%;
+}
+body {
+  background-color:black;
+}
+.slide {
+  display:none;
+  width:90%;
+}
+.full {
+  height:100%;
+  max-width:100%;
+}
+pre {
+  border:1px solid grey;
+  overflow:scroll;
+}
+div.w3-code {
+  border-top:1px solid grey;
+  border-bottom:1px solid grey;
+  border-right:1px solid grey;
+}
