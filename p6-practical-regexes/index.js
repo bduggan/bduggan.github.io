@@ -11,6 +11,7 @@ function loadPage() {
     slideIndex = n;
     showDivs(n);
   } else {
+    n = 0
     slideIndex = 1;
     showDivs(n);
     console.log('loading page 1')
