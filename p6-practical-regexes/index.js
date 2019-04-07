@@ -12,6 +12,7 @@ function loadPage() {
     showDivs(n);
   } else {
     slideIndex = 1;
+    showDivs(n);
     console.log('loading page 1')
   }
 }
