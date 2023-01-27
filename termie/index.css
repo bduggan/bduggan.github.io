@@ -1,0 +1,87 @@
+html, body {
+  height:98%;
+  font-family: Courier;
+  font-size: 20px;
+  print-color-adjust: exact;
+}
+body {
+  counter-reset: page;
+  background-color:black;
+  font-family: Courier;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: Courier;
+  font-weight: bold;
+}
+.ic-white {
+  background-color:rgb(251,241,228);
+}
+.pad-top {
+  padding-top: 45px;
+}
+
+.side-by-side {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.full-width {
+  width: 100%;
+  margin:0px;
+}
+.half-width {
+  width: 40%;
+  margin:0px;
+}
+
+.slide {
+  position:relative;
+  page-break-after: always;
+}
+
+.full {
+  height:100%;
+  max-width:100%;
+}
+pre {
+  border:1px solid grey;
+  overflow:scroll;
+}
+div.t-code, pre.t-code {
+  border-bottom:1px solid white;
+  line-height:1.2;
+}
+div.t-code p, pre.t-code p {
+  margin-top: -20px;
+  margin-bottom: 0px;
+  padding: 0px;
+  word-break: break-all;
+  white-space: pre-line;
+}
+
+div.w3-code {
+  border-top:1px solid grey;
+  border-bottom:1px solid grey;
+  border-right:1px solid grey;
+}
+.half {
+  height:40%;
+  padding:3px;
+  margin:0px;
+}
+.logo { height:22px; }
+.logo2 { height:50px; }
+.fit {
+  height:60vh;
+}
+
+.noscroll {
+  overflow:hidden;
+}
+
+.whatevs {
+    width: 20vh;
+    float:right;
+    margin-right:10vh;
+}
+

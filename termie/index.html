@@ -1,0 +1,979 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    </meta>
+  </head>
+  <title>
+    termie
+  </title>
+  <link href="w3.css" rel="stylesheet">
+
+  </link>
+  <link href="index.css" rel="stylesheet">
+
+  </link>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="styleshieet">
+
+  </link>
+  <body>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="w3-xlarge w3-display-middle">
+        <h1 class="w3-center">
+          Termie
+        </h1>
+        <h3 class="w3-center">
+          <p>
+            <a href="https://github.com/bduggan/termie" target="blank">https://github.com/bduggan/termie</a>
+          </p>
+        </h3>
+        <h2 class="w3-center">
+          Practical and fun automation for all your terminal sessions
+        </h2>
+        <h3 class="w3-center">
+          <p>
+            Brian Duggan
+          </p>
+          <small>
+            <p>
+              <img class="w3-image, logo" src="github.png"></img> bduggan
+            </p>
+          </small>
+          <div class="w3-center">
+            <small>
+              FOSDEM 2023
+            </small>
+          </div>
+        </h3>
+<hr        />
+        <div class="w3-center">
+          <small>
+            <p>
+              <img class="w3-image, logo" src="camelia.png"></img> written in Raku
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="w3-center w3-display-middle">
+        <p>
+          Thank you:
+        </p>
+        <p>
+          <img class="w3-image, logo2" src="logo.png"></img>
+        </p>
+        <p>
+          <img class="w3-image, logo2" src="tpf.jpg"></img>
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h2>
+        outline
+      </h2>
+      <div class="side-by-side">
+        <div class="w3-xxxlarge">
+
+          <li>            <b>concept            </b>          </li>
+
+
+          <li>            features          </li>
+
+
+          <li>            scripts          </li>
+
+
+          <li>            why
+            Raku          </li>
+
+        </div>
+        <div>
+          <p>
+            <img class="fit w3-image" src="caravaggio.jpg"></img>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie█
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > █
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?█
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ What is termie?
+          is: No such file or directory
+          $
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > █
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ What is termie?
+          is: No such file or directory
+          $
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > pip install git+https://github.com/mmabrouk/chatgpt-wrapper█
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          Attempting uninstall: greenlet
+          Found existing installation: greenlet 1.1.0
+          Uninstalling greenlet-1.1.0:
+          Successfully uninstalled greenlet-1.1.0
+          ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+          gevent 20.12.1 requires greenlet<2.0,>=0.4.17; platform_python_implementation == "CPython", but you have greenlet 2.0.1 which is incompatible.
+          Successfully installed chatGPT-0.3.8 greenlet-2.0.1 playwright-1.30.0 pyee-9.0.4
+          WARNING: You are using pip version 21.1.1; however, version 22.3.1 is available.
+          You should consider upgrading via the '/Users/bduggan/.pyenv/versions/3.8.10/bin/python3.8 -m pip install --upgrade pip' command.
+          $
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > pip install git+https://github.com/mmabrouk/chatgpt-wrapper
+          > chatgpt█
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          gevent 20.12.1 requires greenlet<2.0,>=0.4.17; platform_python_implementation == "CPython", but you have greenlet 2.0.1 which is incompatible.
+          Successfully installed chatGPT-0.3.8 greenlet-2.0.1 playwright-1.30.0 pyee-9.0.4
+          WARNING: You are using pip version 21.1.1; however, version 22.3.1 is available.
+          You should consider upgrading via the '/Users/bduggan/.pyenv/versions/3.8.10/bin/python3.8 -m pip install --upgrade pip' command.
+          $ chatgpt
+          Provide a prompt for ChatGPT, or type !help or ? to list commands.
+          1> What is termie?
+        </p>
+        <p>
+          I'm sorry, I'm not familiar with that term. Can you please provide more context or information about what you are asking?
+        </p>
+        <p>
+          2>
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > pip install git+https://github.com/mmabrouk/chatgpt-wrapper
+          > chatgpt
+          > What is termie?
+          > █
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          WARNING: You are using pip version 21.1.1; however, version 22.3.1 is available.
+          You should consider upgrading via the '/Users/bduggan/.pyenv/versions/3.8.10/bin/python3.8 -m pip install --upgrade pip' command.
+          $ chatgpt
+          Provide a prompt for ChatGPT, or type !help or ? to list commands.
+          1> What is termie?
+        </p>
+        <p>
+          I'm sorry, I'm not familiar with that term. Can you please provide more context or information about what you are asking?
+        </p>
+        <p>
+          2> I apologize for any confusion. I don't have knowledge of specific software named "termie" that is planned to be presented at FOSDEM 2023. FOSDEM is a free event for software developers to meet, share ideas and collaborate. There are many projects and software that will be presented there, I would recommend checking the schedule and list of talks for the conference for more information on which software will be presented.
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > pip install git+https://github.com/mmabrouk/chatgpt-wrapper
+          > chatgpt
+          > What is termie?
+          > Termie is being presented at FOSDEM 2023
+          > █
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          WARNING: You are using pip version 21.1.1; however, version 22.3.1 is available.
+          You should consider upgrading via the '/Users/bduggan/.pyenv/versions/3.8.10/bin/python3.8 -m pip install --upgrade pip' command.
+          $ chatgpt
+          Provide a prompt for ChatGPT, or type !help or ? to list commands.
+          1> What is termie?
+        </p>
+        <p>
+          I'm sorry, I'm not familiar with that term. Can you please provide more context or information about what you are asking?
+        </p>
+        <p>
+          2> I apologize for any confusion. I don't have knowledge of specific software named "termie" that is planned to be presented at FOSDEM 2023. FOSDEM is a free event for software developers to meet, share ideas and collaborate. There are many projects and software that will be presented there, I would recommend checking the schedule and list of talks for the conference for more information on which software will be presented.
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > pip install git+https://github.com/mmabrouk/chatgpt-wrapper
+          > chatgpt
+          > What is termie?
+          > Termie is being presented at FOSDEM 2023
+          > \stop█
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_connection.py", line 249, in run
+          await self._transport.run()
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_transport.py", line 154, in run
+          obj = self.deserialize_message(buffer)
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_transport.py", line 84, in deserialize_message
+          obj = json.loads(data)
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/json/__init__.py", line 343, in loads
+          s = s.decode(detect_encoding(s), 'surrogatepass')
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/json/__init__.py", line 246, in detect_encoding
+          if bstartswith((codecs.BOM_UTF32_BE, codecs.BOM_UTF32_LE)):
+          KeyboardInterrupt
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > pip install git+https://github.com/mmabrouk/chatgpt-wrapper
+          > chatgpt
+          > What is termie?
+          > Termie is being presented at FOSDEM 2023
+          > \stop
+          > \stop█
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        concept
+      </h3>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          Task was destroyed but it is pending!
+          Traceback (most recent call last):
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/asyncio/base_subprocess.py", line 104, in close
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/asyncio/unix_events.py", line 735, in close
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/asyncio/unix_events.py", line 721, in write_eof
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/asyncio/base_events.py", line 719, in call_soon
+          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/asyncio/base_events.py", line 508, in <u>check</u>closed
+          RuntimeError: Event loop is closed
+          sys:1: RuntimeWarning: coroutine 'BrowserContext.close' was never awaited
+          $
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ termie
+          Welcome to termie v0.2.0
+          > What is termie?
+          > pip install git+https://github.com/mmabrouk/chatgpt-wrapper
+          > chatgpt
+          > What is termie?
+          > Termie is being presented at FOSDEM 2023
+          > \stop
+          > \stop
+          > █
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h2>
+        outline
+      </h2>
+      <div class="side-by-side">
+        <div class="w3-xxxlarge">
+
+          <li>            concept
+            ✓          </li>
+
+
+          <li>            <b>features            </b>          </li>
+
+
+          <li>            scripts          </li>
+
+
+          <li>            why
+            Raku          </li>
+
+        </div>
+        <div class="fit">
+          <p>
+            <img class="fit w3-image" src="tintin-allright.png"></img>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+
+      <li>        Keep
+        a
+        clutter-free
+        <b>history        </b>
+        across
+        different
+        console
+        environments.      </li>
+
+
+      <li>        Expand
+        <b>macros        </b>      </li>
+
+
+      <li>        Run
+        <b>scripts        </b>      </li>
+
+
+      <li>        Await
+        prompts
+        or
+        other
+        strings.      </li>
+
+
+      <li>        Replay
+        sending
+        lines
+        with
+        a
+        delay.      </li>
+
+
+      <li>        Capture
+        output.      </li>
+
+
+      <li>        Pipe
+        output
+        streams
+        to
+        local
+        files.      </li>
+
+
+      <li>        Run
+        "termie"
+        scripts
+        against
+        interactive
+        sessions.      </li>
+
+
+      <li>        Use
+        <code>\help        </code>
+        to
+        see
+        all
+        the
+        commands:      </li>
+
+      <pre class="w3-code noscroll">&gt; \help
+   \alias                          &lt;key&gt; [&lt;n&gt; | &lt;str&gt;] show alias key, or set it to a str or history item
+   \aliases &lt;str&gt;                  show aliases [containing a string]
+   \append &lt;n&gt; &lt;file&gt;              append nth shown item to script &lt;file&gt;
+   \await [regex]                  await the appearance of regex in the output, then stop a repeat
+   \capture &lt;file&gt;                 write to &lt;file&gt;
+
+  ... 43 commands currently ...
+
+   \split                          split current pane
+   \stop                           send ^C to the current pane stop &lt;id&gt; ...
+   \timing [on|off]                turn on or off showing times in the prompt
+   \trace                          set log level to trace
+   \uni &lt;text&gt;                     Look up unicode character to output
+   \unwatch                        stop watching the current window+pane
+   \watch [filename]               start watching the current window+pane by piping to a file
+   \xfer [filename]                send a file or directory to the remote console
+      </pre>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+      <h6>
+        history
+      </h6>
+
+      <li>        GNU
+        Readline      </li>
+
+      <div class="w3-large w3-display-top w3-left w3-black full-width t-code w3-padding">
+        <p>
+          (reverse-i-search)`Wha': What is termie?
+        </p>
+      </div>
+
+      <li>        commands:
+        \last,
+        \history      </li>
+
+      <div class="w3-large w3-display-top w3-left w3-black full-width t-code w3-padding">
+        <p>
+          > \last 1
+          1) What is termie?
+        </p>
+      </div>
+
+      <li>        fuzzy
+        finder
+        (fzf)      </li>
+
+      <div class="w3-large w3-display-top w3-left w3-black full-width t-code w3-padding">
+        <p>
+          > \find What
+          <img src="fuzzy.png"></img>
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+      <h6>
+        macros
+      </h6>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ psql
+          psql (14.3)
+          Type "help" for help.
+        </p>
+        <p>
+          user@db=# select pid, now() - query_start as duration, query, state
+          user@db-# from pg_stat_activity
+          user@db-# where now() - query_start > interval '1 minute'
+          user@db-# order by 2 desc;
+          pid   |     duration    |       query          | state
+          ------+-----------------+----------------------+-------
+          81486 | 00:32:44.290828 | select pg_sleep(10); | idle
+          (1 row)
+          user@db-#
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          Welcome to termie v0.2.0
+          > psql
+          > select pid, now() - query_start as duration, query, state
+          > from pg_stat_activity
+          > where now() - query_start > interval '1 minute'
+          > order by 2 desc;
+          >
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+      <h6>
+        macros
+      </h6>
+      <div class="w3-large w3-display-top w3-left w3-black full-width t-code w3-padding">
+        <p>
+          > \edit find-queries.sql
+        </p>
+      </div>
+      <small class="w3-right w3-white w3-border-top w3-border-left w3-border-right w3-border-black">
+        find-queries.sql
+      </small>
+      <pre class="w3-code full-width noscroll">  select pid, now() - query_start as duration, query, state
+  from pg_stat_activity
+  where now() - query_start &gt; interval '1 minute'
+  order by 2 desc;
+      </pre>
+      <div class="w3-large w3-display-top w3-left w3-black full-width t-code w3-padding">
+        <p>
+          > \alias find-queries \run find-queries.sql
+        </p>
+      </div>
+      <div class="w3-panel w3-padding-64">
+
+        <li>          <code>\edit          </code>
+          --
+          edit
+          a
+          script        </li>
+
+
+        <li>          <code>\run          </code>
+          --
+          run
+          a
+          script        </li>
+
+
+        <li>          <code>\alias          </code>
+          --
+          make
+          a
+          macro        </li>
+
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+      <h6>
+        macros
+      </h6>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ psql
+          psql (14.3)
+          Type "help" for help.
+        </p>
+        <p>
+          user@db=# select pid, now() - query_start as duration, query, state
+          user@db-# from pg_stat_activity
+          user@db-# where now() - query_start > interval '1 minute'
+          user@db-# order by 2 desc;
+          pid   |     duration    |       query          | state
+          ------+-----------------+----------------------+-------
+          81486 | 00:32:44.290828 | select pg_sleep(10); | idle
+          (1 row)
+          user@db-#
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          Welcome to termie v0.2.0
+          > psql
+          > \find-queries
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h2>
+        outline
+      </h2>
+      <div class="side-by-side">
+        <div class="w3-xxxlarge">
+
+          <li>            concept
+            ✓          </li>
+
+
+          <li>            features
+            ✓          </li>
+
+
+          <li>            <b>scripts            </b>          </li>
+
+
+          <li>            why
+            Raku          </li>
+
+        </div>
+        <div>
+          <p>
+            <img class="w3-image fit" src="expect-cover.png"></img>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        scripts
+      </h3>
+      <p>
+        Let's
+      </p>
+
+      <li>        spawn
+        a
+        new
+        docker
+        container
+        and
+        start
+        a
+        bash
+        session      </li>
+      <li>        add
+        a
+        user      </li>
+      <li>        set
+        a
+        password
+        (and
+        confirm)      </li>
+      <li>        print
+        the
+        hostname
+        that
+        was
+        in
+        the
+        prompt      </li>
+
+      <div class="side-by-side">
+        <div>
+          <div class="w3-right w3-white w3-border-top w3-border-left w3-border-right w3-border-black w3-padding-small">
+            docker.expect
+          </div>
+          <pre class="w3-code full-width noscroll">#!/usr/bin/env expect
+
+spawn docker run -it ubuntu:20.04  bash
+expect &quot;root@&quot;
+send &quot;useradd termie\n&quot;
+expect -re &quot;root@(.*):&quot;
+set host $expect_out(1,string)
+send &quot;passwd termie\n&quot;
+expect &quot;New password:&quot;
+send &quot;fosd3m\n&quot;
+expect &quot;Retype new password:&quot;
+send &quot;fosd3m\n&quot;
+expect &quot;password updated successfully&quot;
+send &quot;exit\n&quot;
+puts &quot;host name is $host&quot;
+          </pre>
+        </div>
+        <div>
+          <div class="w3-right w3-white w3-border-top w3-border-left w3-border-right w3-border-black w3-padding-small">
+            docker.termie
+          </div>
+          <pre class="w3-code full-width noscroll">#/usr/bin/env termie
+
+docker run -it ubuntu:20.04 bash
+\expect root@
+useradd termie
+\expect / 'root@' $&lt;host&gt; = &lt;-[:]&gt;+ ':' /
+passwd termie
+\expect New password:
+fosd3m
+\expect Retype new password:
+fosd3m
+\expect password updated successfully
+exit
+echo &quot;the hostname was&quot; \=host
+          </pre>
+        </div>
+      </div>
+
+      <li>        Lines
+        are
+        sent
+        to
+        the
+        current
+        pane
+        by
+        default      </li>
+
+
+      <li>        Lines
+        that
+        start
+        with
+        a
+        \
+        are
+        termie
+        commands      </li>
+
+
+      <li>        <code>\expect        </code>
+        waits
+        for
+        a
+        string
+        before
+        continuing      </li>
+
+
+      <li>        Named
+        captures
+        can
+        be
+        accessed
+        with
+        <code>\=variable        </code>      </li>
+
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        scripts
+      </h3>
+
+      <li>        Scripts
+        are
+        run
+        within
+        termie.      </li>
+
+
+      <li>        <code>\expect        </code>
+        commands
+        are
+        treated
+        as
+        tests.      </li>
+
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ docker run -it ubuntu:20.04  bash
+          Unable to find image 'ubuntu:20.04' locally
+          20.04: Pulling from library/ubuntu
+          846c0b181fff: Pull complete
+          Digest: sha256:0e0402cd13f68137edb0266e1d2c682f217814420f2d43d300ed8f65479b14fb
+          Status: Downloaded newer image for ubuntu:20.04
+          root@945209a7bcba:/# useradd termie
+          root@945209a7bcba:/# passwd termie
+          New password:
+          Retype new password:
+          passwd: password updated successfully
+          root@945209a7bcba:/# exit
+          exit
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ ./docker.termie
+          ok 1 - waited for root@
+          ok 2 - waited for New password:
+          ok 3 - waited for Retype new password:
+          ok 4 - waited for password updated successfully
+          1..4
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h2>
+        outline
+      </h2>
+      <div class="side-by-side">
+        <div class="w3-xxxlarge">
+
+          <li>            concept
+            ✓          </li>
+
+
+          <li>            features
+            ✓          </li>
+
+
+          <li>            scripts
+            ✓          </li>
+
+
+          <li>            <b>why Raku            </b>          </li>
+
+        </div>
+        <div>
+          <p>
+            <img class="w3-image whatevs" src="camelia.svg"></img>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        why Raku
+      </h3>
+
+      <li>        Seamless
+        interaction
+        with
+        external
+        processes
+        and
+        libraries      </li>
+      <li>        examples:
+        <code>Proc::Async        </code>
+        ,
+        <code>run        </code>
+        ,
+        <code>qx        </code>
+        ,
+        <code>shell        </code>      </li>
+
+      <pre class="w3-code noscroll">my $tmux = Proc::Async.new: :w, &lt;tmux -C&gt;; # tmux control mode
+      </pre>
+      <pre class="w3-code noscroll">my $proc = run &lt;&lt;fzf -q &quot;$what&quot;&gt;&gt;, :in, :out; # fuzzy find
+      </pre>
+      <pre class="w3-code noscroll">my ($rows,$cols) = qx{stty size}.split(' '); # get terminal size
+      </pre>
+      <pre class="w3-code noscroll">use Readline; # GNU Readline library
+      </pre>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        why Raku
+      </h3>
+
+      <li>        built-in
+        asynchronous
+        constructs
+        and
+        types      </li>
+      <li>        examples:
+        supplies,
+        <code>whenever        </code>
+        ,
+        <code>watch        </code>      </li>
+
+      <pre class="w3-code noscroll">sub tail($file --&gt; Supply) {
+  supply {
+    whenever $file.watch -&gt; $e {
+      emit $file.read.decode;
+    }
+  }
+}
+      </pre>
+      <pre class="w3-code noscroll"># supply of lines
+whenever tail($file).lines -&gt; $line {
+  emit $line
+}
+      </pre>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        why Raku
+      </h3>
+
+      <li>        built-in
+        asynchronous
+        constructs
+        and
+        types      </li>
+      <li>        more
+        examples:
+        channels,
+        promises,
+        <code>start        </code>
+        ,
+        <code>react        </code>      </li>
+
+      <pre class="w3-code noscroll"># start a thread that watches for a string or regex, send captures on a channel
+sub expect($target, Channel $captured, Supply :$from --&gt; Promise) {
+  start {
+    react whenever $from -&gt; $buffer {
+      given $target {
+        when Str {
+          if $buffer.contains($target) {
+            done;
+          }
+        }
+        when Regex {
+           if $buffer ~~ $target {
+             $captured.send: $/.clone
+             done;
+           }
+        }
+      }
+    }
+  }
+}
+      </pre>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <p>
+        The end
+      </p>
+    </div>
+    <script src="index.js" type="text/javascript">
+
+    </script>
+  </body>
+</html>
+
