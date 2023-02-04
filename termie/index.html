@@ -167,7 +167,11 @@
       <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
         <p>
           $ What is termie?
-          is: No such file or directory
+          No command 'What' found, did you mean:
+          Command 'chat' from package 'ppp' (main)
+          Command 'jhat' from package 'openjdk-6-jdk' (universe)
+          Command 'jhat' from package 'openjdk-7-jdk' (main)
+          What: command not found
           $
         </p>
       </div>
@@ -415,10 +419,9 @@
 
 
       <li>        Expand
-        <b>macros        </b>      </li>
-
-
-      <li>        Run
+        <b>macros        </b>
+        ,
+        run
         <b>scripts        </b>      </li>
 
 
@@ -426,18 +429,8 @@
         prompts
         or
         other
-        strings.      </li>
-
-
-      <li>        Replay
-        sending
-        lines
-        with
-        a
-        delay.      </li>
-
-
-      <li>        Capture
+        strings.
+        Capture
         output.      </li>
 
 
@@ -456,15 +449,6 @@
         interactive
         sessions.      </li>
 
-
-      <li>        Use
-        <code>\help        </code>
-        to
-        see
-        all
-        the
-        commands:      </li>
-
       <pre class="w3-code noscroll">&gt; \help
    \alias                          &lt;key&gt; [&lt;n&gt; | &lt;str&gt;] show alias key, or set it to a str or history item
    \aliases &lt;str&gt;                  show aliases [containing a string]
@@ -474,8 +458,6 @@
 
   ... 43 commands currently ...
 
-   \split                          split current pane
-   \stop                           send ^C to the current pane stop &lt;id&gt; ...
    \timing [on|off]                turn on or off showing times in the prompt
    \trace                          set log level to trace
    \uni &lt;text&gt;                     Look up unicode character to output
@@ -643,6 +625,76 @@
       </div>
     </div>
     <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+      <h6>
+        send stdout from external commands
+      </h6>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ docker run -it ubuntu:20.04
+          root@601e3d5520cb:/# hostname
+          601e3d5520cb
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          Welcome to termie v0.2.1
+          > \delay 3
+          > \shell cat eg/simple.bash
+          #!/bin/bash
+        </p>
+        <p>
+          echo "docker run -it ubuntu:20.04"
+          echo "hostname"
+        </p>
+        <p>
+          > \do eg/simple.bash
+          running eg/simple.bash
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+      <h6>
+        send to stdin of external commands
+      </h6>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          $ sleep 3 && head /usr/share/dict/words
+          A
+          a
+          aa
+          aal
+          aalii
+          aam
+          Aani
+          aardvark
+          aardwolf
+          Aaron
+        </p>
+      </div>
+      <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
+        <p>
+          > sleep 3 && head /usr/share/dict/words
+          > \exec nl
+          1  A
+          2  a
+          3  aa
+          4  aal
+          5  aalii
+          6  aam
+          7  Aani
+          8  aardvark
+          9  aardwolf
+          10  Aaron
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
       <h2>
         outline
       </h2>
@@ -675,9 +727,6 @@
       <h3>
         scripts
       </h3>
-      <p>
-        Let's
-      </p>
 
       <li>        spawn
         a
@@ -749,65 +798,24 @@ echo &quot;the hostname was&quot; \=host
           </pre>
         </div>
       </div>
-
-      <li>        Lines
-        are
-        sent
-        to
-        the
-        current
-        pane
-        by
-        default      </li>
-
-
-      <li>        Lines
-        that
-        start
-        with
-        a
-        \
-        are
-        termie
-        commands      </li>
-
-
-      <li>        <code>\expect        </code>
-        waits
-        for
-        a
-        string
-        before
-        continuing      </li>
-
-
-      <li>        Named
-        captures
-        can
-        be
-        accessed
-        with
-        <code>\=variable        </code>      </li>
-
     </div>
     <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
       <h3>
         scripts
       </h3>
 
-      <li>        Scripts
-        are
-        run
-        within
-        termie.      </li>
-
-
       <li>        <code>\expect        </code>
-        commands
-        are
-        treated
-        as
-        tests.      </li>
+        "waits"
+        for
+        a
+        string
+        before
+        continuing.
+        (but
+        without
+        the
+        race
+        condition).      </li>
 
       <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
         <p>
@@ -967,9 +975,17 @@ sub expect($target, Channel $captured, Supply :$from --&gt; Promise) {
       </pre>
     </div>
     <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
-      <p>
-        The end
-      </p>
+      <div class="w3-center w3-display-middle">
+        <p>
+          the end
+        </p>
+        <p>
+          github.com/bduggan/termie
+        </p>
+        <p>
+          bduggan@matatu.org
+        </p>
+      </div>
     </div>
     <script src="index.js" type="text/javascript">
 

@@ -105,6 +105,13 @@ document.addEventListener('keydown', function(event) {
       window.location.href = window.location.toString().replace('#','') + '?print'
     }
   }
+  if (event.which === 87) { // 'w'
+    let w = window.innerWidth
+    let str = `${w} x ${window.innerHeight}`;
+    let want = w * 9 / 16;
+    str += `  want : ${w} x ${want}`
+    alert(str)
+  }
   console.log('slide ', slideIndex );
 });
 

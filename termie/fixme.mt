@@ -125,7 +125,11 @@ slide {
 
   panel {
     $ What is termie?
-    is: No such file or directory
+    No command 'What' found, did you mean:
+     Command 'chat' from package 'ppp' (main)
+     Command 'jhat' from package 'openjdk-6-jdk' (universe)
+     Command 'jhat' from package 'openjdk-7-jdk' (main)
+    What: command not found
     $
 
   }
@@ -339,6 +343,22 @@ slide {
 }
 
 slide {
+  h3: concept
+
+  * Type on the bottom, the same thing is sent to the top
+
+  * Unless you start with a backslash: this is a command
+
+  * More about commands in the next section
+
+  * The console is a tmux session, so you can use all tmux commands
+
+  * You get a unified interface for all of your console sessions
+
+}
+
+
+slide {
 
   h2: outline
 
@@ -370,13 +390,21 @@ slide {
 
     * Keep a clutter-free *history* across different console environments.
 
-    * Expand *macros*, run *scripts*
+    * Expand *macros*
 
-    * Await prompts or other strings.  Capture output.
+    * Run *scripts*
+
+    * Await prompts or other strings.
+
+    * Replay sending lines with a delay.
+
+    * Capture output.
 
     * Pipe output streams to local files.
 
     * Run "termie" scripts against interactive sessions.
+
+    * Use `\help` to see all the commands:
 
     ```.w3-code,noscroll
     > \help
@@ -523,7 +551,7 @@ slide {
 
   h3: features
 
-  h6: send stdout from external commands
+  h6: executing external commands
 
   panel_s {
     $ docker run -it ubuntu:20.04
@@ -532,7 +560,6 @@ slide {
   }
 
   panel_s {
-
     Welcome to termie v0.2.1
     > \delay 3
     > \shell cat eg/simple.bash
@@ -547,46 +574,6 @@ slide {
 
 }
 
-slide {
-
-  h3: features
-
-  h6: send to stdin of external commands
-
-  panel_s {
-
-    $ sleep 3 && head /usr/share/dict/words
-    A
-    a
-    aa
-    aal
-    aalii
-    aam
-    Aani
-    aardvark
-    aardwolf
-    Aaron
-
-  }
-
-  panel_s {
-
-  > sleep 3 && head /usr/share/dict/words
-  > \exec nl
-     1  A
-     2  a
-     3  aa
-     4  aal
-     5  aalii
-     6  aam
-     7  Aani
-     8  aardvark
-     9  aardwolf
-    10  Aaron
-
-  }
-
-}
 slide {
 
   h2: outline
@@ -615,6 +602,8 @@ slide {
 
 slide {
   h3: scripts
+
+  Let's
 
   * spawn a new docker container and start a bash session
   * add a user
@@ -665,13 +654,22 @@ slide {
       }
   }
 
+  * Lines are sent to the current pane by default
+
+  * Lines that start with a \ are termie commands
+
+  * `\expect` waits for a string before continuing
+
+  * Named captures can be accessed with `\=variable`
 }
 
 
 slide {
   h3: scripts
 
-  * `\expect` "waits" for a string before continuing.  (but without the race condition).
+  * Scripts are run within termie.
+
+  * `\expect` commands are treated as tests.
 
   panel_s {
     $ docker run -it ubuntu:20.04  bash
@@ -804,13 +802,7 @@ slide {
 
 slide {
 
-  div.w3-center,w3-display-middle {
-    the end
-
-    github.com/bduggan/termie
-
-    bduggan@matatu.org
-  }
+  The end
 
 }
 
