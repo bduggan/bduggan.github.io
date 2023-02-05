@@ -147,7 +147,11 @@
       <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
         <p>
           $ What is termie?
-          is: No such file or directory
+          No command 'What' found, did you mean:
+          Command 'chat' from package 'ppp' (main)
+          Command 'jhat' from package 'openjdk-6-jdk' (universe)
+          Command 'jhat' from package 'openjdk-7-jdk' (main)
+          What: command not found
           $
         </p>
       </div>
@@ -190,7 +194,6 @@
       </h3>
       <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
         <p>
-          Attempting uninstall: greenlet
           Found existing installation: greenlet 1.1.0
           Uninstalling greenlet-1.1.0:
           Successfully uninstalled greenlet-1.1.0
@@ -315,8 +318,6 @@
       </h3>
       <div class="w3-large w3-display-top w3-left w3-black half full-width t-code">
         <p>
-          File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_connection.py", line 249, in run
-          await self._transport.run()
           File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_transport.py", line 154, in run
           obj = self.deserialize_message(buffer)
           File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_transport.py", line 84, in deserialize_message
@@ -449,22 +450,12 @@
         interactive
         sessions.      </li>
 
-      <pre class="w3-code noscroll">&gt; \help
-   \alias                          &lt;key&gt; [&lt;n&gt; | &lt;str&gt;] show alias key, or set it to a str or history item
-   \aliases &lt;str&gt;                  show aliases [containing a string]
-   \append &lt;n&gt; &lt;file&gt;              append nth shown item to script &lt;file&gt;
-   \await [regex]                  await the appearance of regex in the output, then stop a repeat
-   \capture &lt;file&gt;                 write to &lt;file&gt;
 
-  ... 43 commands currently ...
+      <li>        Lots
+        of
+        built-in
+        commands      </li>
 
-   \timing [on|off]                turn on or off showing times in the prompt
-   \trace                          set log level to trace
-   \uni &lt;text&gt;                     Look up unicode character to output
-   \unwatch                        stop watching the current window+pane
-   \watch [filename]               start watching the current window+pane by piping to a file
-   \xfer [filename]                send a file or directory to the remote console
-      </pre>
     </div>
     <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
       <h3>
@@ -695,6 +686,111 @@
       </div>
     </div>
     <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+      <h6>
+        Other interesting commands
+      </h6>
+
+      <li>        <code>await        </code>
+        --
+        wait
+        for
+        a
+        string
+        or
+        regular
+        expression      </li>
+
+
+      <li>        <code>enq        </code>
+        --
+        enqueue
+        a
+        command
+        to
+        run
+        after
+        an
+        await      </li>
+
+
+      <li>        <code>grep        </code>
+        --
+        find
+        lines
+        in
+        the
+        output      </li>
+
+
+      <li>        <code>repeat        </code>
+        --
+        send
+        the
+        last
+        few
+        lines
+        repeatedly
+        the
+        last
+        N
+        commands      </li>
+
+
+      <li>        <code>send        </code>
+        --
+        send
+        a
+        file
+        to
+        the
+        pane,
+        line
+        by
+        line      </li>
+
+
+      <li>        <code>delay        </code>
+        --
+        sleep
+        N
+        seconds
+        between
+        sending
+        lines      </li>
+
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <h3>
+        features
+      </h3>
+
+      <li>        <code>help        </code>
+        --
+        show
+        all
+        commands      </li>
+
+      <pre class="w3-code noscroll">&gt; \help
+   \alias                          &lt;key&gt; [&lt;n&gt; | &lt;str&gt;] show alias key, or set it to a str or history item
+   \aliases &lt;str&gt;                  show aliases [containing a string]
+   \append &lt;n&gt; &lt;file&gt;              append nth shown item to script &lt;file&gt;
+   \await [regex]                  await the appearance of regex in the output, then stop a repeat
+   \capture &lt;file&gt;                 write to &lt;file&gt;
+
+  ... 43 commands currently ...
+
+   \timing [on|off]                turn on or off showing times in the prompt
+   \trace                          set log level to trace
+   \uni &lt;text&gt;                     Look up unicode character to output
+   \unwatch                        stop watching the current window+pane
+   \watch [filename]               start watching the current window+pane by piping to a file
+   \xfer [filename]                send a file or directory to the remote console
+      </pre>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
       <h2>
         outline
       </h2>
@@ -914,6 +1010,11 @@ echo &quot;the hostname was&quot; \=host
         constructs
         and
         types      </li>
+      <li>        easy
+        interprocess
+        (and
+        interthread)
+        communication      </li>
       <li>        examples:
         supplies,
         <code>whenever        </code>

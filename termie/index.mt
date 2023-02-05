@@ -125,7 +125,11 @@ slide {
 
   panel {
     $ What is termie?
-    is: No such file or directory
+    No command 'What' found, did you mean:
+     Command 'chat' from package 'ppp' (main)
+     Command 'jhat' from package 'openjdk-6-jdk' (universe)
+     Command 'jhat' from package 'openjdk-7-jdk' (main)
+    What: command not found
     $
 
   }
@@ -165,7 +169,6 @@ slide {
 
   panel_s=div.w3-large,w3-display-top,w3-left,w3-black,half,full-width,t-code {
 
-        Attempting uninstall: greenlet
           Found existing installation: greenlet 1.1.0
           Uninstalling greenlet-1.1.0:
             Successfully uninstalled greenlet-1.1.0
@@ -282,8 +285,6 @@ slide {
   h3: concept
 
   panel_s {
-      File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_connection.py", line 249, in run
-        await self._transport.run()
       File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_transport.py", line 154, in run
         obj = self.deserialize_message(buffer)
       File "/Users/bduggan/.pyenv/versions/3.8.10/lib/python3.8/site-packages/playwright/_impl/_transport.py", line 84, in deserialize_message
@@ -378,23 +379,8 @@ slide {
 
     * Run "termie" scripts against interactive sessions.
 
-    ```.w3-code,noscroll
-    > \help
-       \alias                          <key> [<n> | <str>] show alias key, or set it to a str or history item
-       \aliases <str>                  show aliases [containing a string]
-       \append <n> <file>              append nth shown item to script <file>
-       \await [regex]                  await the appearance of regex in the output, then stop a repeat
-       \capture <file>                 write to <file>
+    * Lots of built-in commands
 
-      ... 43 commands currently ...
-
-       \timing [on|off]                turn on or off showing times in the prompt
-       \trace                          set log level to trace
-       \uni <text>                     Look up unicode character to output
-       \unwatch                        stop watching the current window+pane
-       \watch [filename]               start watching the current window+pane by piping to a file
-       \xfer [filename]                send a file or directory to the remote console
-    ```
 }
 
 slide {
@@ -587,6 +573,53 @@ slide {
   }
 
 }
+
+slide {
+
+   h3: features
+
+   h6: Other interesting commands
+
+   *  `await` -- wait for a string or regular expression
+
+   *  `enq` -- enqueue a command to run after an await
+
+   *  `grep` -- find lines in the output
+
+   *  `repeat` -- send the last few lines repeatedly the last N commands
+
+   *  `send` -- send a file to the pane, line by line
+
+   *  `delay` -- sleep N seconds between sending lines
+
+}
+
+slide {
+
+  h3: features
+
+  * `help` -- show all commands
+
+  ```.w3-code,noscroll
+  > \help
+     \alias                          <key> [<n> | <str>] show alias key, or set it to a str or history item
+     \aliases <str>                  show aliases [containing a string]
+     \append <n> <file>              append nth shown item to script <file>
+     \await [regex]                  await the appearance of regex in the output, then stop a repeat
+     \capture <file>                 write to <file>
+
+    ... 43 commands currently ...
+
+     \timing [on|off]                turn on or off showing times in the prompt
+     \trace                          set log level to trace
+     \uni <text>                     Look up unicode character to output
+     \unwatch                        stop watching the current window+pane
+     \watch [filename]               start watching the current window+pane by piping to a file
+     \xfer [filename]                send a file or directory to the remote console
+  ```
+
+}
+
 slide {
 
   h2: outline
@@ -752,6 +785,7 @@ slide {
   h3: why Raku
 
   * built-in asynchronous constructs and types
+  * easy interprocess (and interthread) communication
   * examples: supplies, `whenever`, `watch`
 
   ```.w3-code,noscroll
