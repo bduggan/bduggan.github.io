@@ -1,0 +1,55 @@
+<div>
+  <canvas id="deliveries"></canvas>
+</div>
+
+<script src="chart.js"></script>
+
+<script>
+  Chart.defaults.color = "white";
+  Chart.defaults.borderColor = "#999";
+  const ctx = document.getElementById('deliveries');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+      datasets: [{
+        label: 'Number of Deliveries',
+        data: [
+          10,  // in 1 second
+          15,  // in 2 seconds
+          19,  // in 3 seconds
+          18,  // in 4 seconds
+          10,  // in 5 seconds
+          5,   // in 6 seconds
+          4,   // in 7 seconds
+          0,   // in 8 seconds
+          0,   // in 9 seconds
+          0,   // in 10 seconds
+          0,   // in 11 seconds
+          0,   // in 12 seconds
+          1,   // in 13 seconds
+          2,   // in 14 seconds
+          2,   // in 15 seconds
+        ],
+      }],
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Number of seconds"
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: "Number of Deliveries"
+          }
+        },
+      }
+    }
+  });
+</script>
+

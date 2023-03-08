@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>a career in programming</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<style>
+		.cols {
+			display: grid;
+			grid-template-columns: 70% 30%;
+		}
+		.evencols {
+			display: grid;
+			grid-template-columns: 50% 50%;
+		}
+		.squeeze img {
+			margin:0px;
+		}
+		</style>
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section class="center">
+          <h2>A Career in Programming</h2>
+          <p>Brian Duggan</p>
+          <p>Instacart</p>
+        </section>
+
+        <section>
+          <h3>About me</h3>
+				  <div class="cols">
+							<ul>
+							  <li>Lots of programming!
+								<li>Medicine
+						    <li>Climate Science
+								<li>Politics
+								<li>Space
+								<li>Grocery Delivery
+							  <li>Open source
+					      <li>Just for fun
+							</ul>
+						<div class="squeeze">
+							 <img src="NASA_logo.svg" />
+							 <img src="insta-logo.jpg" />
+							 <img style='background-color:white;' src="raptor.png" />
+							 <img src="camelia.svg" />
+						</div>
+					</div>
+        </section>
+
+        <section data-auto-animate>
+          <div>
+           <h3>My first computer</h3>
+           <img data-id="box1" src="apple.jpg" style='height:50vh;' />
+         </div>
+				</section>
+
+        <section data-auto-animate>
+         <div class="evencols">
+           <div>
+             <div>Apple //c</div>
+             <div><img data-id="box1" src="apple.jpg" style='height:20vh;' /></div>
+             <div><small>128 kB of memory<br>140 kB storage per disk<br>7.5 lb</small></div>
+           </div>
+           <div>
+             <div>iPhone 11</div>
+             <div><img src="iphone.svg" style='height:20vh;' /></div>
+             <small>4 Gb Of memory (4 million kB)<br>245 Gb of storage (245 million kB)<br>0.4 lb</small>
+           </div>
+         </div>
+         <hr>
+         <small>
+           iPhone has 30,000 times as much memory, and 1.8 million times as much storage, and is about twenty times lighter
+         </small>
+				</section>
+
+        <section>
+         <h3>My first program</h3>
+				 <br><br>
+				<pre><code class="hljs basic" data-trim>
+          10 print "hello!"
+          20 goto 10
+          </code></pre>
+				 <br><br>
+         <p>Question: What does this program do?</p>
+        </section>
+
+        <section>
+            <iframe data-src='hello.html' style='height:90vh;'></iframe>
+			  </section>
+
+			 <section data-transition="fade">
+         <h3>A modern version</h3>
+         <div class="evencols">
+           <div>
+            <div>BASIC</div>
+            <pre><code class="hljs basic" data-trim>
+            10 print "hello!"
+            20 goto 10
+            </code></pre>
+           </div>
+           <div>
+            <div>Python</div>
+            <pre><code class="hljs python" data-trim>
+              while True:
+                print("hello!")
+            </code></pre>
+           </div>
+         </div>
+       </section>
+
+			 <section data-transition="fade">
+         <h3>A modern version</h3>
+         <div class="evencols">
+           <div>
+            <div>Perl</div>
+            <pre><code class="hljs basic" data-trim>
+            while (1) {
+               print "hello\n";
+            }
+            </code></pre>
+           </div>
+           <div>
+            <div>Ruby</div>
+            <pre><code class="hljs ruby" data-trim>
+              loop {
+                puts "hello!"
+              }
+            </code></pre>
+           </div>
+         </div>
+       </section>
+
+			 <section data-transition="fade">
+         <h3>A modern version</h3>
+         <div class="evencols">
+           <div>
+            <div>Javascript</div>
+            <pre><code class="hljs javascript" data-trim>
+            while (true) {
+              console.log('hi')
+            }
+            </code></pre>
+           </div>
+           <div>
+            <div>Raku</div>
+            <pre><code class="hljs raku" data-trim>
+              loop {
+                say "hello"
+              }
+            </code></pre>
+           </div>
+         </div>
+       </section>
+
+        <section>
+          Let's try it!
+          <p><a href="https://repl.it" target="_blank">https://repl.it</a></p>
+          <img style='height:50vh;' src="gritty.jpg" />
+        </section>
+
+        <section>
+          Now, let's hand out candy
+        </section>
+
+        <section>
+          <img src="seats.jpg" />
+          <div>
+            <ol>
+              <li>How can we do this quickly and efficiently?
+              <li>How can we measure how quickly we did it?
+            </ol>
+          </div>
+        </section>
+
+        <section data-background-iframe="chart.html" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; top: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.5); border: 1px solid grey; padding: 10px; font-size: 20px; text-align: center;">
+						<h2 style='color:#f80;'>sample data</h2>
+					</div>
+        </section>
+
+        <section>
+          <ul>
+            <li>How can we improve?
+            <li>What should we improve?
+            <li>How fast are we?
+            <li>What if we are too fast?
+            <li>What if everyone chooses a delivery time?
+            <li>What if everyone chooses types and quantities?
+            <li>What if people are change their minds?
+            <li>How many people should make the deliveries?
+            <li>What about allergies?
+            <li>Where should they start?
+            <li>How can we decide the best strategy?
+          </ul>
+        </section>
+
+        <section>
+          <a href="https://en.wikipedia.org/wiki/Vehicle_routing_problem">Vehicle Routing Problem</a>
+          <p>The vehicle routing problem (VRP) is a combinatorial optimization and integer programming
+             problem which asks "What is the optimal set of routes for a fleet of vehicles to traverse
+             in order to deliver to a given set of customers?"</p>
+          <img src='vrp.svg' style='height:30vh;' />
+        </section>
+
+        <section>
+          <p>For "last mile delivery", we have VRP +,</p>
+          <ul>
+            <li>specific delivery windows
+            <li>new orders constantly
+            <li>decisions about which shoppers can do which deliveries
+            <li>decisions about how to group deliveries together
+            <li>many metrics that tell us how well we are doing
+          </ul>
+        </section>
+
+        <section>
+          <p>We write programs to understand and solve problems</p>
+          <p>We also use graphs to visualize solutions</p>
+          <p>We also write programs to keep track of our metrics</p>
+        </section>
+
+        <section>
+          <h3>Conclusion</h3>
+          <p>Today we... </p>
+          <ul>
+            <li>Saw six different programming languages
+            <li>Saw how to write a program
+            <li>Saw graphs being used to find optimal solutions
+            <li>Learned about the Vehicle Routing Problem
+            <li>Learned what it's like to be a programmer?
+          </ul>
+        </section>
+
+        <section>
+          <p>thank you!</p>
+          <img style='height:20vh;' src="gritty.jpg" />
+        </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+        controlsTutorial: false,
+        controls: false,
+		    center: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+			});
+		</script>
+	</body>
+</html>
