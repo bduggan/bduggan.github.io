@@ -201,8 +201,9 @@
               function update_data() {
                 let t = document.getElementById('chart_data').value;
                 console.log(`updating to ${t}`)
-                chart.data.datasets[0].data = eval(t);
-                chart.data.labels = [ ...eval(t).keys() ];
+                let ary = eval(t);
+                chart.data.datasets[0].data = ary;
+                chart.data.labels = [ ...ary.keys() ];
                 chart.update()
               }
 
