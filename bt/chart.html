@@ -9,7 +9,7 @@
   Chart.defaults.borderColor = "#999";
   const ctx = document.getElementById('deliveries');
 
-  new Chart(ctx, {
+  var chart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
