@@ -194,6 +194,7 @@
           <div>
               <textarea name='delivery_data' id='chart_data' cols=50 rows=2>[10,5,5,0,0,0,0,0,0,0,0,0,0,0,0] </textarea>
               <button value="update" onclick="update_data()">update</button>
+              <pre id='stats'></pre>
           </div>
           </div>
             <script src="chart.js"></script>
@@ -205,6 +206,15 @@
                 chart.data.datasets[0].data = ary;
                 chart.data.labels = [ ...ary.keys() ];
                 chart.update()
+                let stats = '';
+                let seconds = 0;
+                let deliveries = 0;
+                for (let k of ary.keys()) {
+                  seconds += k * ary[k];
+                  deliveries += ary[k];
+                }
+                stats += `average time per delivery<br>${seconds} seconds / ${deliveries} deliveries == ${(seconds / deliveries).toFixed(2)} seconds per delivery`;
+                document.getElementById('stats').innerHTML = stats;
               }
 
               Chart.defaults.color = "white";
@@ -222,18 +232,8 @@
                 },
                 options: {
                   scales: {
-                    x: {
-                      title: {
-                        display: true,
-                        text: "Number of seconds"
-                      }
-                    },
-                    y: {
-                      title: {
-                        display: true,
-                        text: "Number of Deliveries"
-                      }
-                    },
+                    x: { title: { display: true, text: "Number of seconds" } },
+                    y: { title: { display: true, text: "Number of Deliveries" } },
                   }
                 }
               });
