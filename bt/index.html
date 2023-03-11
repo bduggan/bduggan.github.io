@@ -235,7 +235,7 @@ hello!
           <div class='stacked'>
           <div> <canvas id="deliveries"></canvas> </div>
           <div>
-              <textarea name='delivery_data' id='chart_data' cols=50 rows=2>[10,5,5,0,0,0,0,0,0,0,0,0,0,0,0] </textarea>
+              <textarea name='delivery_data' id='chart_data' cols=50 rows=2>[2,14,14,4,6,6,4,2,0,0,0,0,0,0,0]</textarea>
               <button value="update" onclick="update_data()">update</button>
               <pre id='stats'></pre>
           </div>
@@ -256,6 +256,8 @@ hello!
                   seconds += k * ary[k];
                   deliveries += ary[k];
                 }
+                stats += `Total pieces of candy (deliveries): ${deliveries}<br>`
+                stats += `Total seconds: ${seconds}<br>`
                 stats += `average time per delivery<br>${seconds} seconds / ${deliveries} deliveries == ${(seconds / deliveries).toFixed(2)} seconds per delivery`;
                 document.getElementById('stats').innerHTML = stats;
               }
@@ -270,7 +272,7 @@ hello!
                   labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
                   datasets: [{
                     label: 'Number of Deliveries',
-                    data: [ 10, 5, 5, 0, 0, 0,0, 0, 0, 0, 0, 0, 0,  0,  0 ],
+                    data: [2,14,14,4,6,6,4,2,0,0,0,0,0,0,0]
                   }],
                 },
                 options: {
