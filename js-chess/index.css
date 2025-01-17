@@ -1,0 +1,123 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #2f3542;
+  font-family: Arial, sans-serif;
+}
+.container {
+  display: flex;
+  gap: 20px;
+}
+.board {
+  width: 560px;
+  height: 560px;
+  border: 20px solid #723d46;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+.square {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-size: 85%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.square::before {
+  position: absolute;
+  color: #666;
+  font-size: 12px;
+  opacity: 0.8;
+}
+.rank-label::before {
+  content: attr(data-rank);
+  left: 2px;
+  top: 2px;
+}
+.file-label::before {
+  content: attr(data-file);
+  right: 2px;
+  bottom: 2px;
+}
+.white {
+  background-color: #eed4ac;
+}
+.black {
+  background-color: #b88b4a;
+}
+.selected {
+  background-color: rgba(123, 97, 255, 0.5);
+}
+.possible-move::after {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(106, 176, 76, 0.7);
+}
+.possible-move.occupied::after {
+  width: 70px;
+  height: 70px;
+  border-radius: 0;
+  border: 4px solid rgba(106, 176, 76, 0.7);
+  box-sizing: border-box;
+}
+.controls {
+  background: #723d46;
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.move-list {
+  height: 400px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+.move-row {
+  display: flex;
+  gap: 10px;
+  padding: 2px 0;
+  cursor: pointer;
+}
+.move-row:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.move-row.current {
+  background: rgba(123, 97, 255, 0.3);
+}
+.move-number {
+  width: 30px;
+}
+button {
+  background: #eed4ac;
+  border: none;
+  padding: 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #723d46;
+}
+button:hover {
+  background: #b88b4a;
+}
+.nav-hint {
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.8;
+}
