@@ -1,4 +1,14 @@
 /* style.css */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #2f3542;
+      font-family: Arial, sans-serif;
+      color:white;
+    }
 .container {
     display: flex;
     gap: 20px;
@@ -32,7 +42,7 @@
 .white { background-color: #fff; }
 .black { background-color: #ccc; }
 .selected { background-color: #7f7; }
-.valid-move { background-color: #ff7; }
+/* .valid-move { background-color: #ff7; } */
 
 [data-piece="K"] { background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg'); }
 [data-piece="Q"] { background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg'); }
