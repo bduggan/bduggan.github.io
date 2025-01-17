@@ -25,7 +25,45 @@ class Chess {
         this.enPassant = null;
         this.castling = { w: { k: true, q: true }, b: { k: true, q: true } };
         this.moveHistory = [];
+        this.boardHistory = [];
         this.setupBoard();
+        this.currentMove = -1;
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft' && (this.currentMove > -1 || this.moveHistory.length > 0)) {
+            this.navigateToMove(this.currentMove - 1);
+          } else if (e.key === 'ArrowRight' && this.currentMove < this.moveHistory.length - 1) {
+            this.navigateToMove(this.currentMove + 1);
+          }
+        });
+    }
+
+    navigateToMove(move) {
+      if (move < -1 || move >= this.moveHistory.length) {
+        return;
+      }
+      console.log(`navigate to move: ${move}`);
+      this.currentMove = move;
+      if (move === -1) {
+        this.board = INITIAL_BOARD.map(row => [...row]);
+        this.turn = 'w';
+        this.selected = null;
+        this.moves = [];
+        this.enPassant = null;
+        this.castling = { w: { k: true, q: true }, b: { k: true, q: true } };
+        this.moveHistory = [];
+        this.boardHistory = [];
+      } else {
+        move = move + 1;
+        this.board = this.boardHistory[move].map(row => [...row]);
+        this.turn = move % 2 === 0 ? 'w' : 'b';
+        this.selected = null;
+        // this.moves = [];
+        this.enPassant = null;
+        this.castling = { w: { k: true, q: true }, b: { k: true, q: true } };
+        this.moveHistory = this.moveHistory.slice(0, move * 2);
+        this.boardHistory = this.boardHistory.slice(0, move);
+      }
+      this.setupBoard();
     }
 
     setupBoard() {
@@ -241,11 +279,14 @@ class Chess {
         }
 
         this.moveHistory.push(this.toPGN(fromR, fromC, toR, toC, capture));
+        this.boardHistory.push(this.board.map(row => [...row]));0
         
         this.board[toR][toC] = this.board[fromR][fromC];
         this.board[fromR][fromC] = '.';
 
         this.turn = this.turn === 'w' ? 'b' : 'w';
+        this.currentMove = this.moveHistory.length - 1;
+        console.log(`currentMove: ${this.currentMove}`);
         this.setupBoard();
     }
 }
