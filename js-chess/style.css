@@ -15,11 +15,13 @@
 }
 
 #board {
-    width: 400px;
-    height: 400px;
-    border: 2px solid #333;
-    display: grid;
-    grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+  width: 560px;
+  height: 560px;
+  border: 20px solid #723d46;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 #pgn {
@@ -34,13 +36,13 @@
     align-items: center;
     font-size: 2em;
     cursor: pointer;
-    background-size: 80% 80%;
+    background-size: 85%;
     background-position: center;
     background-repeat: no-repeat;
 }
+.white { background-color: #eed4ac; }
+.black { background-color: #b88b4a; }
 
-.white { background-color: #fff; }
-.black { background-color: #ccc; }
 .selected { background-color: #7f7; }
 /* .valid-move { background-color: #ff7; } */
 
