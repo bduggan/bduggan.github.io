@@ -1,4 +1,1511 @@
-coming soon!
+<html>
+  <head>
+    <meta charset="UTF-8">
 
-for fosdem 2026
+    </meta>
+  </head>
+  <title>
+    Keeping Spatial Scripting Sane
+  </title>
+  <link href="w3.css" rel="stylesheet">
 
+  </link>
+  <link href="index.css" rel="stylesheet">
+
+  </link>
+  <link href="raleway.css" rel="stylesheet">
+
+  </link>
+  <body>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="w3-xlarge w3-display-middle">
+        <h1 class="w3-center">
+          Keeping Spatial Scripting Sane
+        </h1>
+        <h4 class="w3-center">
+          with Samaki and Raku
+        </h4>
+        <div class="w3-center">
+          <p>
+            <img class="w3-image, logo" src="camelia.png"></img>
+          </p>
+        </div>
+        <div class="w3-center">
+          <p>
+            by Brian Duggan
+          </p>
+          <small>
+            <p>
+              <img class="w3-image, logo" src="github.png"></img> bduggan
+            </p>
+          </small>
+          <div class="w3-center">
+            <small>
+              FOSDEM 2026
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        about me
+      </div>
+      <div class="w3-xlarge w3-display-middle">
+<li>  Brian
+  Duggan</li>
+<li>  Logistics
+  Engineer
+  at
+  Instacart</li>
+<li>  Dispatch/Geospatial
+  Team</li>
+<li>  Contributor
+  to
+  Raku
+  ecosystem</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Outline
+      </div>
+      <div class="w3-xlarge w3-display-middle">
+<li>  Motivation</li>
+<li>  Samaki</li>
+<li>  Examples</li>
+<li>  Extending</li>
+<li>  Raku</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Motivation
+      </div>
+      <h2>
+        Spatial scripting!
+      </h2>
+      <div class="side-by-side">
+        <div>
+          <div>
+            <h4>
+              goals
+            </h4>
+<li>  Improve
+  on
+  UI-oriented
+  workflows</li>
+<li>  using
+  on
+  local
+  text
+  files</li>
+<li>  that
+  works
+  with
+  multiple
+  languages</li>
+<li>  and
+  multiple
+  tools</li>
+<li>  and
+  is
+  easy
+  to
+  extend</li>
+          </div>
+          <div>
+            <h4>
+              challenges
+            </h4>
+<li>  Visualization
+  is
+  part
+  of
+  coding</li>
+<li>  but
+  UIs
+  can
+  slow
+  things
+  down</li>
+<li>  Data
+  exploration
+  is
+  critical</li>
+<li>  but
+  volume
+  of
+  data
+  can
+  be
+  a
+  challenge</li>
+<li>  Different
+  languages
+  for
+  different
+  things</li>
+<li>  can
+  be
+  tricky
+  to
+  glue
+  together</li>
+          </div>
+        </div>
+        <div class="w3-padding">
+          <p>
+            <img class="w3-image" src="motivation.png"></img>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  Stitching
+  together
+  A
+  Multitude
+  of
+  Kinds
+  of
+  Items</li>
+<li>  Swahili
+  for
+  fish</li>
+      </div>
+      <div class="side-by-side">
+        <div>
+          <h3>
+            design goals
+          </h3>
+<li>  simple
+  text
+  file
+  format
+  for
+  a
+  script</li>
+<li>  multiple
+  languages
+  at
+  once</li>
+<li>  easy
+  to
+  extend
+  (plugins
+  and
+  plugouts)</li>
+<li>  console
+  integration;
+  minimal
+  UI</li>
+<li>  some
+  aspects
+  of
+  REPLs,
+  Notebooks</li>
+        </div>
+        <div>
+          <p>
+            <img class="w3-image" src="fish.png"></img>
+          </p>
+          <center class="w3-small">
+            M. C. Escher, Fish, Vignette, 1956
+          </center>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <p>
+        Basic concept
+      </p>
+      <pre class="w3-code">-- python
+import this
+
+-- duckdb
+select st_buffer(...) as ring
+
+-- R
+plot(...)
+
+-- llm
+What latitude is the northernmost point in Belgium?      </pre>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          Terminology
+        </p>
+<li>  cells
+  --
+  a
+  sequence
+  of
+  "cells"
+  of
+  different
+  types.</li>
+<li>  plugins
+  --
+  each
+  cell
+  type
+  is
+  handled
+  by
+  a
+  "plugin".</li>
+<li>  plugouts
+  --
+  output
+  files
+  are
+  handled
+  by
+  "plugouts".</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <p>
+        Basic concept
+      </p>
+      <pre class="w3-code">-- python:location.json
+import json
+print(json.dumps({...})) # find lat/lon
+
+-- duckdb:rows.csv
+select st_buffer(...) as ring
+
+-- R:plot.png
+plot(...)
+
+-- llm:response.txt
+What latitude is the northernmost point in Belgium?      </pre>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          Cells can also have:
+        </p>
+<li>  a
+  name
+  ("belgium")</li>
+<li>  an
+  output
+  format
+  ("json"),
+  determines
+  which
+  plugouts
+  handle
+  it</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <p>
+        Share data between cells by interpolating into code
+      </p>
+      <pre class="w3-code">-- python:location.json
+import json
+print(json.dumps(..) ) # find lat/lon
+
+-- duckdb:rows.csv
+select st_buffer( st_makepoint(〈 cell(&quot;location&quot;).res&lt;lon lat&gt;.join(',') 〉), 1) as ring
+
+-- R:plot.png
+plot(...)
+
+-- llm:response.txt
+What latitude is the northernmost point in Belgium?
+      </pre>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          Angle brackets contain Raku expressions.
+        </p>
+        <p>
+          Expressions can get output or content from other cells, after the cell is executed.
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <p>
+        Share data between cells by interpolating into code
+      </p>
+      <pre class="w3-code">--
+my $country = 'belgium';
+
+-- python:location.json
+import json
+print(json.dumps(..) ) # find lat/lon
+
+-- duckdb:rows.csv
+select st_buffer( st_makepoint(〈 cell(&quot;location&quot;).res&lt;lon lat&gt;.join(',') 〉), 1) as ring
+
+-- R:plot.png
+plot( ... )
+
+-- llm:response.txt
+What latitude is the northernmost point in 〈 $country.uc 〉?
+      </pre>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          You can also have Raku code outside of the cells.
+        </p>
+        <p>
+          Execution context is shared.
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h2>
+        Summary
+      </h2>
+      <div class="side-by-side">
+        <div>
+          <p>
+            A file named <code>belgium.samaki</code> may contain a <b>cell</b> :
+          </p>
+          <pre class="w3-code w3-margin-top">-- duckdb:circles.csv
+SELECT
+ST_BUFFER( .. ) as circle, *
+FROM y
+WHERE
+      latitude &gt;〈 ..raku expression.. 〉
+  and latitude &lt;〈 ..raku expression.. 〉
+          </pre>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  <b>type  </b>
+  is
+  duckdb</li>
+<li>  <b>name  </b>
+  is
+  circles</li>
+<li>  <b>extension  </b>
+  is
+  csv</li>
+          </div>
+        </div>
+        <div>
+          <p>
+            Cells are delimited by
+          </p>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  lines
+  like:
+  <code>-- type:name.extension  </code></li>
+          </div>
+          <p>
+            and will be handled by
+          </p>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  the
+  first
+  <b>plugin  </b>
+  that
+  matches
+  the
+  type
+  ("duckdb")</li>
+<li>  the
+  first
+  <b>plugout  </b>
+  that
+  match
+  the
+  extension
+  ("csv')</li>
+          </div>
+          <p>
+            and the contents are generated by interpolating
+          </p>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  〈
+  angle
+  brackets
+  〉with
+  Raku
+  expressions</li>
+<li>  or
+  &lt;&lt;&lt
+  triple
+  less/greater-thans
+  &gt;&gt;&gt;</li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h4>
+        The console interface
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="console-vim.png"></img>
+          </p>
+        </div>
+      </center>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h4>
+        The console interface
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="console-raw.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          run <code>sam</code> for the console UI
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h4>
+        The console interface
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="console-eval.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          Use [m] to toggle betwen eval and raw mode.
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h4>
+        The console interface
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="console-exec.png"></img> 
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          Select cells to run them
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h4>
+        The console interface
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="console-output.png"></img> 
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          Select output files to view them
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h4>
+        The console interface
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="console-output-choose.png"></img> 
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          All plugouts are available to view the file.
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="csv-geo-circle.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          CSVGeo is a plugout reads GeoJSON, WKT, EWKB, EWKT, uses JS DataTables to view
+          CSV content, auto detects spatial columns and has options for tiles and color schemes.
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Samaki
+      </div>
+      <h2>
+        Overall flow
+      </h2>
+<li>  Define
+  input
+  types
+  (plugins)</li>
+<li>  Define
+  output
+  types
+  (plugouts)</li>
+<li>  Write
+  code</li>
+<li>  Run
+  cells</li>
+<li>  Share
+  data
+  between
+  cells</li>
+<li>  Manage
+  data</li>
+<li>  Visualize
+  data</li>
+<li>  Write
+  more
+  code</li>
+<li>  repeat!</li>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 0 : Geocode with Raku + Nominatim, buffer with postgis
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="example-geocode.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  Use
+  Nominatim
+  (via
+  a
+  Raku
+  module)
+  to
+  geocode
+  ULB.</li>
+<li>  Use
+  <code>c(...).out  </code>
+  to
+  get
+  the
+  raw
+  output
+  (c
+  is
+  short
+  for
+  cell).</li>
+<li>  Cell
+  names
+  ("latlon")
+  get
+  other
+  cells,
+  so
+  do
+  numbers
+  (
+  e.g.
+  <code>c(0)  </code>
+  )</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 0 : Geocode with Raku + Nominatim, buffer with postgis
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="csv-geo-circle.png"></img>
+          </p>
+        </div>
+      </center>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 1 : Python + R
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="pyr-1.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  Type
+  <code>python3  </code>
+  uses
+  a
+  python
+  plugin
+  to
+  run
+  this
+  as
+  a
+  script.</li>
+<li>  JSON
+  is
+  parsed
+  and
+  available
+  via
+  <code>c('bbox').json  </code>
+  .</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 1 : Python + R
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="pyr-2.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  R-repl
+  uses
+  a
+  plugin
+  that
+  spawns
+  a
+  Pseudo
+  TTY
+  and
+  interacts
+  with
+  the
+  R
+  CLI
+  interpreter.</li>
+<li>  The
+  R
+  interpreter
+  opens
+  windows
+  when
+  <code>ggplot  </code>
+  is
+  called.</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 1 : Python + R
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="w3-image fit" src="ulb-buildings.png"></img>
+          </p>
+        </div>
+      </center>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 2 : bash + raku + duckdb
+      </h4>
+      <small>
+        Let's find the top OSM tags in the ULB bounding box
+      </small>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="raku-duck-1.png"></img>
+          </p>
+        </div>
+      </center>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 2 : bash + raku + duckdb
+      </h4>
+      <small>
+        Let's find the top OSM tags in the ULB bounding box
+      </small>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="raku-duck-2.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+        <p>
+          The ChartJS plugout is a DWIM interface to Chart.js
+        </p>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 2 : bash + raku + duckdb
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="raku-duck-out.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  The
+  ChartJS
+  plugout
+  picks
+  a
+  graph
+  type
+  based
+  on
+  heuristics
+  about
+  the
+  column
+  types
+  and
+  contents.</li>
+<li>  And
+  provides
+  options
+  to
+  change
+  chart
+  type
+  and
+  column
+  selection.</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 2 : bash + raku + duckdb
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="tag-map.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  View
+  another
+  cell
+  using
+  the
+  CSVGeo
+  plugout.</li>
+<li>  Which
+  detects
+  latitude
+  +
+  longitude
+  columns
+  (and
+  geojson
+  columns
+  seen
+  earlier).</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 2 : bash + raku + duckdb
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="raku-duck-run-bin.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  With
+  duckdb's
+  csv
+  handling,
+  it's
+  easy
+  to
+  use
+  a
+  previously
+  generated
+  csv.</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 2 : bash + raku + duckdb
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="raku-duck-bin.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  The
+  DeckGLBin
+  plugout
+  supports
+  hex
+  or
+  geohash
+  binning
+  with
+  Deck.gl</li>
+<li>  by
+  detecting
+  H3
+  hex
+  ids
+  or
+  geohash
+  strings.</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 3 : LLM + Grass
+      </h4>
+      <div class="side-by-side">
+        <div class="terminal-window">
+          <p>
+            <img class="w3-image fit2" src="grass-1.png"></img>
+          </p>
+        </div>
+        <div class="terminal-window">
+          <p>
+            <img class="w3-image fit2" src="grass-2.png"></img>
+          </p>
+        </div>
+      </div>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  A
+  claude
+  plugin
+  can
+  take
+  use
+  the
+  <code>claude  </code>
+  cli
+  command</li>
+<li>  to
+  receive
+  stdin
+  and
+  create
+  stdout
+  for
+  quick
+  LLM
+  work.</li>
+<li>  LLMs
+  sometimes
+  produce
+  extra
+  delimiters
+  at
+  the
+  first
+  and
+  last
+  line
+  (''')</li>
+<li>  Use
+  the
+  raku
+  <code>lines  </code>
+  and
+  and
+  expression
+  to
+  trim
+  them.</li>
+<li>  The
+  <code>d.mon  </code>
+  grass
+  command
+  opens
+  a
+  window.</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 3 : LLM + Grass
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="cool-terrain.png"></img>
+          </p>
+        </div>
+      </center>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 4 : Python + URL + XML + mapnik (bash) + png
+      </h4>
+      <div>
+        <pre class="w3-code">-- python:bbox
+...
+
+-- url:data.osm
+https://api.openstreetmap.org/api/0.6/map?bbox=〈c('bbox').out 〉
+
+-- bash
+ogr2ogr -f GeoJSON buildings.geojson data.osm multipolygons -where &quot;building IS NOT NULL&quot;
+ogr2ogr -f GeoJSON roads.geojson data.osm lines -where &quot;highway IS NOT NULL&quot;
+
+-- raku:style.xml
+use Map::Mapnik;
+my $map = Mapnik::Map.new:
+  background-color =&gt; '#f8f4f0', fontsets =&gt; [ ... ], styles =&gt; [ ...]
+  data-sources =&gt; [
+     ... buildings.geojson ...
+     ... roads.geojson ...
+  ];
+say $map.to-xml
+
+-- bash
+mapnik-render --xml style.xml --img out.png        </pre>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Examples
+      </div>
+      <h4>
+        Example 4 : Python + URL + XML + mapnik (bash) + png
+      </h4>
+      <center>
+        <div class="terminal-window">
+          <p>
+            <img class="fit" src="ulb2-nik.png"></img>
+          </p>
+        </div>
+      </center>
+      <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  An
+  "open"
+  plugout
+  uses
+  system
+  <code>open  </code>
+  (or
+  <code>xdg-open  </code>
+  )
+  for
+  image
+  (or
+  other
+  files).</li>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Extending
+      </div>
+      <h4>
+        Configuring Plugins
+      </h4>
+      <div class="side-by-side">
+        <div>
+          <p>
+            Configuration file :
+          </p>
+          <pre class="w3-code">plugins =&gt; [
+  / duck /            =&gt; 'Samaki::Plugin::DuckDB',
+  / something_else /  =&gt; ...plugin...
+  ...
+]          </pre>
+          <p>
+            somewhere else
+          </p>
+          <pre class="w3-code">
+class Samaki::Plugin::DuckDB does Samaki::Plugin {
+
+  method execute(...) {
+     ...
+  }
+
+}
+          </pre>
+        </div>
+        <div>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  A
+  regex
+  matches
+  a
+  cell
+  <code>type  </code>
+  to
+  a
+  plugin
+  class.</li>
+<li>  Plugins
+  have
+  an
+  <code>execute  </code>
+  method.</li>
+          </div>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  Plugins
+  read
+  cell
+  contents
+  and</li>
+<li>  stream
+  output
+  to
+  the
+  pane.</li>
+<li>  write
+  output
+  files.</li>
+<li>  interact
+  with
+  other
+  processes.</li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Extending
+      </div>
+      <h4>
+        Interacting with other processes:
+      </h4>
+      <div class="side-by-side">
+        <div>
+          <p>
+            Plugin classes can inherit from common ones.
+          </p>
+          <pre class="w3-code">class Samaki::Plugin::Postgres does Samaki::Plugin::Process {
+  has $.cmd = 'psql';
+}
+
+class Samaki::Plugin::R does Samaki::Plugin::REPL {
+  has $.cmd = 'R';
+}          </pre>
+        </div>
+        <div>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  Use
+  <b>Samaki::Plugin::Process  </b>
+  for
+  simple
+  stdin/stdout
+  interaction
+  (with
+  support
+  for
+  args,
+  tempfiles).</li>
+<li>  Use
+  <b>Samaki::Plugin::Repl  </b>
+  for
+  PTY
+  interactions
+  (pseudo
+  TTY
+  like
+  <code>expect  </code>
+  ).</li>
+<li>  Also
+  <b>Samaki::Plugin::Tmux  </b>
+  will
+  use
+  the
+  tmux
+  control
+  protocol
+  to
+  run
+  a
+  process
+  in
+  a
+  tmux
+  window.
+  (new!)</li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Extending
+      </div>
+      <div class="side-by-side">
+        <div>
+          <p>
+            Make classes right in the config file easily:
+          </p>
+          <pre class="w3-code">plugins =&gt; [
+
+ / grass / =&gt; Samaki::Plugin::Repl[cmd =&gt; 'grass'],
+
+ / claude / =&gt; Samaki::Plugin::Process[
+                cmd  =&gt; 'claude',
+                args =&gt; [ '--permission-mode','dontAsk' ],
+                :use-stdin,
+              ],          </pre>
+        </div>
+        <div>
+          <p>
+            with built-in Raku syntax
+          </p>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  Parameterized
+  roles
+  can
+  be
+  used
+  to
+  generate
+  a
+  class
+  from
+  a
+  role.</li>
+<li>  This
+  is
+  called
+  "punning".</li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Extending
+      </div>
+      <div class="side-by-side">
+        <div>
+          <pre class="w3-code">plugouts =&gt; [
+     / html /    =&gt; 'Samaki::Plugout::HTML',
+     / csv /     =&gt; 'Samaki::Plugout::CSVGeo',
+     / csv /     =&gt; 'Samaki::Plugout::DeckGLBin',
+     / geojson / =&gt; 'Samaki::Plugout::Geojson',
+     / .* /      =&gt; 'Samaki::Plugout::Open',
+     ...          </pre>
+          <p>
+            Somewhere else
+          </p>
+          <pre class="w3-code">class Samaki::Plugout::Open does Samaki::Plugout {
+
+   method execute( IO::Path :$path!, ... ) {
+      shell &lt;&lt;open $path&gt;&gt;;
+   }
+}
+          </pre>
+        </div>
+        <div>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+            <p>
+              Plugouts also implement <b>execute</b>.
+            </p>
+          </div>
+          <div class="w3-orange w3-border w3-margin-top w3-padding">
+<li>  Raku
+  has
+  gradual
+  typing</li>
+<li>  strict
+  types
+  enforce
+  the
+  plugin/plugout
+  interface</li>
+<li>  at
+  compilation
+  time</li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Extending
+      </div>
+<li>  lots
+  of
+  plugins
+  included</li>
+      <pre class="w3-small w3-code">Plugin                  | Type     | Description
+========================|==========|============================================
+Bash                    | Process  | Execute contents as a bash program
+Code                    |          | Evaluate raku code in the current process
+Duck                    | Process  | Run SQL queries via duckdb executable
+Duckie                  | inline   | Run SQL queries via L&lt;Duckie&gt; inline driver
+File                    |          | Display file metadata and info
+HTML                    |          | Generate HTML from contents
+LLM                     | inline   | Send contents to LLM via LLM::DWIM
+Markdown                | inline   | Generate HTML from markdown
+Postgres                | Process  | Execute SQL via psql process
+Raku                    | Process  | Run raku in a separate process
+Repl::Raku              | Repl     | Interactive raku REPL (persistent session)
+Repl::Python            | Repl     | Interactive python REPL (persistent session)
+Repl::R                 | Repl     | Interactive R REPL (persistent session)
+Text                    |          | Write contents to a text file      </pre>
+<li>  and
+  plugouts</li>
+      <pre class="w3-small w3-code">Plugout                 | Description
+========================|============================================
+ChartJS                 | Display CSV as interactive charts in browser (via Chart.js)
+CSVGeo                  | Display CSV that has geojson data using a map in browser (via leaflet)
+D3                      | Display CSV as D3.js visualizations in browser
+DataTable               | Display CSV in browser with sorting/pagination/search
+Duckview                | Show CSV summary in bottom pane (via duckdb)
+Geojson                 | Display GeoJSON on map in browser (via leaflet)
+HTML                    | Open HTML content in browser
+JSON                    | Display prettified JSON in bottom pane
+Plain                   | Display plain text in browser
+Raw                     | Open file with system default application
+TJLess                  | View JSON in new tmux window (requires jless)      </pre>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Raku
+      </div>
+      <p>
+        Why Raku?
+      </p>
+<li>  Process
+  interaction
+  (PTYs,
+  streaming
+  interaction
+  with
+  async
+  primitives)</li>
+<li>  Decoding
+  UTF8
+  streams,
+  parsing
+  ANSI
+  byte
+  sequences</li>
+<li>  Gradual
+  typing
+  for
+  interface
+  robustness</li>
+<li>  Language
+  and
+  syntax
+  extensibility</li>
+<li>  much
+  more</li>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Other features
+      </div>
+      <p>
+        In progress
+      </p>
+<li>  watch
+  for
+  changes
+  in
+  a
+  directory
+  and
+  auto
+  reload
+  (
+  <code>--watch  </code>
+  )</li>
+<li>  import
+  from
+  Jupytyer
+  notebooks
+  (
+  <code>sam import  </code>
+  )</li>
+<li>  output
+  as
+  an
+  HTML
+  page
+  (
+  <code>sam export  </code>
+  )</li>
+<li>  run
+  cells
+  without
+  the
+  UI
+  (
+  <code>sam run  </code>
+  )</li>
+      <p>
+        Not yet implemented :
+      </p>
+<li>  auto
+  run
+  cells
+  when
+  other
+  cells
+  change</li>
+<li>  watch
+  REPL
+  outputs
+  for
+  specific
+  prompts</li>
+<li>  [your
+  feature
+  request
+  goes
+  here]</li>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="ic-offwhite w3-border-bottom w3-xlarge w3-margin-top w3-margin-bottom w3-block w3-padding-small">
+        Conclusion
+      </div>
+      <div class="w3-xlarge w3-display-middle">
+        <ul class="links">
+<li>  <img class="w3-image, logo" src="github.png">  </img>
+  bduggan/raku-samaki</li>
+<li>  or
+  search
+  <a href="https://raku.land/?q=samaki" target="blank">raku.land  </a></li>
+<li>  or
+  google
+  for
+  "raku
+  samaki"</li>
+          <p>
+            This presentation:
+          </p>
+<li>  <a href="https://bduggan.github.io/raku-samaki" target="blank">bduggan.github.io/raku-samaki  </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide w3-card w3-round-large w3-margin full ic-white w3-padding">
+      <div class="w3-xlarge w3-display-middle">
+        <p>
+          The end!
+        </p>
+      </div>
+      <p>
+        <img src="end.svg"></img>
+      </p>
+    </div>
+    <script src="index.js" type="text/javascript">
+
+    </script>
+  </body>
+</html>
