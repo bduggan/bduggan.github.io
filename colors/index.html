@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>colors</title>
+<style>body {
+  margin: 0;
+  color: white;
+  font: 16px/1.5 system-ui, sans-serif;
+  font-size: 1.5rem;
+}
+
+main {
+  display: block;
+  min-height: 100vh;
+  background-color: #112233;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+input {
+  font-size: 2rem;
+}
+
+button {
+  width: 12vw;
+  font-size: 1rem;
+  padding: 0.2rem .4rem;
+  margin: 0.1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  border: 1px solid white;
+  background-color: #112233;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+span.groups > button {
+  width: 6vw;
+  font-size: 1rem;
+  padding: 0.2rem .4rem;
+  margin: 0.1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  border: 1px solid white;
+  background-color: #112233;
+  color: white;;
+}
+
+button.new-colors {
+  background-color: #334455;
+  color: #aabbcc;
+  border: 1px solid #aabbcc;
+  padding: 0.5rem 1rem;
+  /* center the button */
+  display: block;
+  margin: 1rem auto;
+}
+
+span.picker {
+  /* swatches in a grid of equal cells; the column count divides the
+     page size (100) so every full page fills its last row */
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 0.2rem;
+  margin: 1rem auto;
+  cursor: pointer;
+}
+
+/* each swatch fills its cell; the grid gap replaces the margin */
+span.picker > button {
+  width: auto;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* half as many columns on narrow screens: still divides 100 */
+@media (max-width: 1100px) {
+  span.picker {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  filter: brightness(1.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+button.active {
+  font-weight: bold;
+  transform: scale(1.04);
+  /* light ring inside a dark ring reads on any swatch color */
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 2px #112233, 0 0 6px 2px rgba(255, 255, 255, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+/* color swatches set their own background/color inline; leave those
+   alone so the label stays readable. Plain buttons get inverted. */
+button.active:not([style]) {
+  background-color: #f4f4f4;
+  color: #112233;
+}
+
+/* "showing X to Y of Z" */
+span.range {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* prev, page numbers, next: one line of small buttons */
+div.pager-row {
+  display: flex;
+  align-items: center;
+  /* "safe" falls back to start when the row overflows, so page 1 stays reachable */
+  justify-content: safe center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+span.pager {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+div.pager-row button {
+  width: auto;
+  min-width: 1.6rem;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.3rem;
+  margin: 0.05rem;
+}
+
+/* no scale-up for the current page; just the highlight */
+div.pager-row button.active {
+  transform: none;
+}
+
+/* page numbers stay white; the current one is marked by a lighter fill */
+div.pager-row button,
+div.pager-row button.active {
+  color: white;
+}
+
+div.pager-row button.active {
+  background-color: #446688;
+}
+
+/* prev / next rows above and below the grid */
+div.step-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+div.step-row button {
+  width: auto;
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.6rem;
+}
+</style>
+</head>
+<body>
+<div id="webraku-root"><main><span>Browse named colors, from </span><a href="https://raku.land/zef:thundergnat/Color::Names">Color::Names</a><br><span class="groups"></span><hr><span>Click a color to change the background.</span><hr><div><h3>group: XKCD</h3><span class="range">showing 1 to 100 of 928</span></div><div class="pager-row"><span class="pager"></span></div><div class="step-row top"><button class="prev">« prev</button><button class="next">next »</button></div><span class="picker"></span><div class="step-row bottom"><button class="prev">« prev</button><button class="next">next »</button></div><pre></pre><hr></main></div>
+<script id="webraku-replay" type="application/json">[]</script>
+<script src="colors.client.js?v=1792357147"></script>
+
+</body>
+</html>
