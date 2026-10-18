@@ -7,7 +7,7 @@ use deps;
 
 stylesheet 'style.css'.IO.slurp;
 
-page '/', :title('colors'), {
+page '/colors', :title('colors'), {
   my $note;
   my $picker;
   my $groups;
