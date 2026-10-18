@@ -22,11 +22,19 @@ page '/colors', :title('colors'), {
   my %page-of;   # group => current page, remembered when switching groups
 
   my $page = main {
-    span 'Browse named colors, from ';
 
-    a( :href<https://raku.land/zef:thundergnat/Color::Names>, 'Color::Names') ~ '.';
-
-    br;
+    div :class<intro>, {
+      span 'These are the colors in ';
+      a( :href<https://raku.land/zef:thundergnat/Color::Names>, 'Color::Names') ~ '.';
+      my $src = 'https://github.com/bduggan/bduggan.github.io/blob/master/colors/colors.raku';
+      p {
+        span 'The '
+        a( :href($src), :class<src>, 'source code' )
+        span ' (using '
+        a :href('https://raku.land/zef:ash/Webraku'), 'Webraku';
+        span ') is on GitHub.';
+      }
+    }
 
     $groups = span :class<groups>, { };
     hr;
@@ -57,7 +65,6 @@ page '/colors', :title('colors'), {
     }
 
     $note = pre '';
-
     hr;
   }
 
