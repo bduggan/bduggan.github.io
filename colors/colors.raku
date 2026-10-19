@@ -28,9 +28,9 @@ page '/colors', :title('colors'), {
       a( :href<https://raku.land/zef:thundergnat/Color::Names>, 'Color::Names') ~ '.';
       my $src = 'https://github.com/bduggan/bduggan.github.io/blob/master/colors/colors.raku';
       p {
-        span 'The '
-        a( :href($src), :class<src>, 'source code' )
-        span ' (using '
+        span 'The ';
+        a( :href($src), :class<src>, 'source code' );
+        span ' (using ';
         a :href('https://raku.land/zef:ash/Webraku'), 'Webraku';
         span ') is on GitHub.';
       }
