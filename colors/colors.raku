@@ -45,6 +45,7 @@ page '/colors', :title('colors'), {
     div {
       my $g = $active-group.?text // $default-group;
       $group-info = h3 "group: $g";
+      $note = pre '';
       $range = span :class<range>, "showing 1 to { min($per-page, color-count($g)) } of { color-count($g) }";
     }
 
@@ -64,7 +65,6 @@ page '/colors', :title('colors'), {
       $next-bottom = button 'next »', :class<next>;
     }
 
-    $note = pre '';
     hr;
   }
 
